@@ -25,9 +25,10 @@ import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import RNFetchBlob from 'rn-fetch-blob'
 import RNFS from 'react-native-fs';
 import recordImg from '../../assets/icons/recordss.jpeg'
-import { tabOpen, tabClosed } from '../../redux/navigateTabRedux/navigate-action'
+import { tabOpen,saveAudioR, tabClosed,onStartRecordR,onStopRecordR,resumeRecorderR,pauseRecorderR } from '../../redux/navigateTabRedux/navigate-action'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
+
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
 const StartRecording = ({ navigation, route }) => {
@@ -45,7 +46,8 @@ const StartRecording = ({ navigation, route }) => {
   const [baseAudio, setBaseAudio] = useState('')
   const [recordingName, setRecordingName] = useState('')
   const [recordingPause, setRecordingPause] = useState(false);
-  const { isRecordingScreen } = useSelector(state => state.navReducer)
+  const { isRecordingScreen,recordTimeR,
+    recordSecsR } = useSelector(state => state.navReducer)
   const dispatch = useDispatch();
 
   const state = useNavigationState(state => state);
@@ -117,44 +119,46 @@ const StartRecording = ({ navigation, route }) => {
   console.log(isRecordingScreen, "isRecordingScreen")
 
   const onStartRecord = async () => {
-    const dirs = RNFetchBlob.fs.dirs;
-    const path = Platform.select({
-      ios: `hellos.m4a`,
-      android: `${dirs.CacheDir}/hellos.mp3`,
-    });
-    setRecordingStart(true)
-    console.log(path, 'path start')
-    const result = await audioRecorderPlayer.startRecorder(path);
+    dispatch(onStartRecordR())
+    // const dirs = RNFetchBlob.fs.dirs;
+    // const path = Platform.select({
+    //   ios: `hellos.m4a`,
+    //   android: `${dirs.CacheDir}/hellos.mp3`,
+    // });
+    // setRecordingStart(true)
+    // // console.log(path, 'path start')
+    // const result = await audioRecorderPlayer.startRecorder(path);
 
-    // const result = await audioRecorderPlayer.startRecorder();
-    audioRecorderPlayer.addRecordBackListener((e) => {
+    // // const result = await audioRecorderPlayer.startRecorder();
+    // audioRecorderPlayer.addRecordBackListener((e) => {
 
-      setrecordSecs(e.currentPosition);
-      setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+    //   setrecordSecs(e.currentPosition);
+    //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
 
-      return;
-    });
-    console.log(result, 'started');
+    //   return;
+    // });
+    // console.log(result, 'started');
   };
 
   const pauseRecorder = async () => {
+    dispatch(pauseRecorderR())
     // setRecordingStart(false);
-    setRecordingPause(true)
-    const dirs = RNFetchBlob.fs.dirs;
-    const path = Platform.select({
-      ios: `hellos.m4a`,
-      android: `${dirs.CacheDir}/hellos.mp3`,
-    });
-    console.log(path, 'path pause')
-    const result = await audioRecorderPlayer.pauseRecorder(path);
-    audioRecorderPlayer.addRecordBackListener((e) => {
+    // setRecordingPause(true)
+    // const dirs = RNFetchBlob.fs.dirs;
+    // const path = Platform.select({
+    //   ios: `hellos.m4a`,
+    //   android: `${dirs.CacheDir}/hellos.mp3`,
+    // });
+    // console.log(path, 'path pause')
+    // const result = await audioRecorderPlayer.pauseRecorder(path);
+    // audioRecorderPlayer.addRecordBackListener((e) => {
 
-      setrecordSecs(e.currentPosition);
-      setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+    //   setrecordSecs(e.currentPosition);
+    //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
 
-      return;
-    });
-    console.log(result, 'started');
+    //   return;
+    // });
+    // console.log(result, 'started');
   }
 
   const getRecordingPath = () => {
@@ -163,46 +167,48 @@ const StartRecording = ({ navigation, route }) => {
   }
 
   const resumeRecorder = async () => {
-    const dirs = RNFetchBlob.fs.dirs;
-    const path = Platform.select({
-      ios: `hellos.m4a`,
-      android: `${dirs.CacheDir}/hellos.mp3`,
-    });
-    console.log(path, 'path resume')
-    setRecordingPause(false)
-    const result = await audioRecorderPlayer.resumeRecorder(path);
-    audioRecorderPlayer.addRecordBackListener((e) => {
+    dispatch(resumeRecorderR())
+    // const dirs = RNFetchBlob.fs.dirs;
+    // const path = Platform.select({
+    //   ios: `hellos.m4a`,
+    //   android: `${dirs.CacheDir}/hellos.mp3`,
+    // });
+    // console.log(path, 'path resume')
+    // setRecordingPause(false)
+    // const result = await audioRecorderPlayer.resumeRecorder(path);
+    // audioRecorderPlayer.addRecordBackListener((e) => {
 
-      setrecordSecs(e.currentPosition);
-      setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+    //   setrecordSecs(e.currentPosition);
+    //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
 
-      return;
-    });
-    console.log(result, 'started');
+    //   return;
+    // });
+    // console.log(result, 'started');
   }
 
 
   const onStopRecord = async () => {
-    const result = await audioRecorderPlayer.stopRecorder();
-    audioRecorderPlayer.removeRecordBackListener();
+    dispatch(onStopRecordR());
+    // const result = await audioRecorderPlayer.stopRecorder();
+    // audioRecorderPlayer.removeRecordBackListener();
 
-    setrecordSecs(0);
-    setrecordTime('00:00:00')
-    const dirs = RNFetchBlob.fs.dirs;
-    console.log(dirs.CacheDir, 'path stop', RNFS.DocumentDirectoryPath)
+    // setrecordSecs(0);
+    // setrecordTime('00:00:00')
+    // const dirs = RNFetchBlob.fs.dirs;
+    // console.log(dirs.CacheDir, 'path stop', RNFS.DocumentDirectoryPath)
 
-    RNFS.readFile(`file://${dirs.CacheDir}/hellos.m4a`, 'base64').then(o => {
-      setBaseAudio(o)
-      console.log(o, 'base64 audio')
+    // RNFS.readFile(`file://${dirs.CacheDir}/hellos.m4a`, 'base64').then(o => {
+    //   setBaseAudio(o)
+    //   console.log(o, 'base64 audio')
 
-      RNFS.writeFile(`file://${RNFS.DocumentDirectoryPath}/hellos.m4a`, o, 'base64').then((e) => { console.log(e) })
+    //   RNFS.writeFile(`file://${RNFS.DocumentDirectoryPath}/hellos.m4a`, o, 'base64').then((e) => { console.log(e) })
 
-      // const playSound = () => {
-      // const sound = new Sound("file:////data/user/0/com.recordingapp/cache/hellos.mp3", '', () => callback(sound))
-      // }
-      // const callback = () => sound.play(successCallback)
+    //   // const playSound = () => {
+    //   // const sound = new Sound("file:////data/user/0/com.recordingapp/cache/hellos.mp3", '', () => callback(sound))
+    //   // }
+    //   // const callback = () => sound.play(successCallback)
 
-    }).catch(e => console.log(e, 'err ==?> asdasd'))
+    // }).catch(e => console.log(e, 'err ==?> asdasd'))
 
 
     //       RNFS.writeFile("file:////data/user/0/com.recordingapp/cache/hellos.mp3", o, 'base64')
@@ -256,7 +262,6 @@ const StartRecording = ({ navigation, route }) => {
   const onPausePlay = async () => {
     await audioRecorderPlayer.pausePlayer();
   };
-
   const onStopPlay = async () => {
     console.log('onStopPlay');
     audioRecorderPlayer.stopPlayer();
@@ -302,133 +307,191 @@ const StartRecording = ({ navigation, route }) => {
       alert('Enter Recording')
     }
     else {
-      setModalVisible(false)
-      const result = await audioRecorderPlayer.stopRecorder();
-      audioRecorderPlayer.removeRecordBackListener();
+      setModalVisible(false);
+      dispatch(saveAudioR(recordingName,
+        volume,
+repeat,
+recordTime,))
+      // const result = await audioRecorderPlayer.stopRecorder();
+      // audioRecorderPlayer.removeRecordBackListener();
 
-      setrecordSecs(0);
-      setrecordTime('00:00:00')
-      // const dirs = RNFetchBlob.fs.dirs;
+      // setrecordSecs(0);
+      // setrecordTime('00:00:00')
 
       // const dirs = RNFetchBlob.fs.dirs;
       // const paths = Platform.select({
       //   ios: `hellos.m4a`,
       //   android: `${dirs.CacheDir}/hellos.mp3`,
       // });
-      // let ext = Platform.OS=='ios'?'.m4a':'.mp3'
-      // let path=`${RNFS.DocumentDirectoryPath}/${recordingName}${ext}`
-      // await RNFS.downloadFile({
-      //   fromUrl:`file:///${dirs.CacheDir}/hellos${ext}`,
-      //   toFile:path,
-      //   readTimeout:15000,
-      //   connectionTimeout:10000
-      // })
-      // const obj={
-      //         audioName:recordingName,
-      //         vol:volume,
-      //         pathAudio:path,
-      //         repeatNum:repeat,
-      //         // originalAudio:o,
-      //         // repeatAudio:o.repeat(Number(repeat)),
-      //         // repeatAudio:removeEq.repeat(Number(repeat))+'=',
-      //         recordTime:recordTime,
-      //         // repeatAudio:o
-      //       }
-      //       let arr=[];
-      //       let audioData = await AsyncStorage.getItem('recording'); 
-      //       // console.log(audioData,'audioData')
-      //       let audioDataParse = JSON.parse(audioData)
-      //       if(audioDataParse && audioDataParse.length >0){
-      //     arr=[...audioDataParse]
-      //         arr.push(obj);
-      //     AsyncStorage.setItem('recording',JSON.stringify(arr))
-      //       }
-      //       else{
-      //         arr=[obj]
-      //         AsyncStorage.setItem('recording',JSON.stringify(arr))
 
-      //       }
+      // let ext = Platform.OS == 'ios' ? '.m4a' : '.mp3';
+      // let recordingNames = recordingName.replace(/ /g, "");
+      // let path = `file://${RNFS.DocumentDirectoryPath}/${recordingNames}${ext}`
+      // RNFS.readFile(`file://${dirs.CacheDir}/hellos${ext}`, 'base64').then(async (o) => {
+      //   setBaseAudio(o)
+      //   console.log(o, 'base64 audio')
 
-      // MINE APPROACH WITH BASE 64
-      const dirs = RNFetchBlob.fs.dirs;
-      const paths = Platform.select({
-        ios: `hellos.m4a`,
-        android: `${dirs.CacheDir}/hellos.mp3`,
-      });
-      // console.log(dirs,dirs.CacheDir,'dirs.CacheDir')
+      //   RNFS.writeFile(path, o, 'base64').then((e) => { console.log(e, 'success write') })
+      //   const obj = {
+      //     audioName: recordingName,
+      //     vol: volume,
+      //     pathAudio: path,
+      //     repeatNum: repeat,
+      //     recordTime: recordTime,
+        
+      //   }
+      //   let arr = [];
+      //   let audioData = await AsyncStorage.getItem('recording');
+        
+      //   let audioDataParse = JSON.parse(audioData)
+      //   if (audioDataParse && audioDataParse.length > 0) {
+      //     arr = [...audioDataParse]
+      //     arr.push(obj);
+      //     AsyncStorage.setItem('recording', JSON.stringify(arr))
+      //   }
+      //   else {
+      //     arr = [obj]
+      //     AsyncStorage.setItem('recording', JSON.stringify(arr))
 
-      // const dirs = RNFetchBlob.fs.dirs;
-      let ext = Platform.OS == 'ios' ? '.m4a' : '.mp3';
-      let recordingNames = recordingName.replace(/ /g, "");
-      let path = `file://${RNFS.DocumentDirectoryPath}/${recordingNames}${ext}`
-      RNFS.readFile(`file://${dirs.CacheDir}/hellos${ext}`, 'base64').then(async (o) => {
-        setBaseAudio(o)
-        console.log(o, 'base64 audio')
+      //   }
 
-        RNFS.writeFile(path, o, 'base64').then((e) => { console.log(e, 'success write') })
-        const obj = {
-          audioName: recordingName,
-          vol: volume,
-          pathAudio: path,
-          repeatNum: repeat,
-          // originalAudio:o,
-          // repeatAudio:o.repeat(Number(repeat)),
-          // repeatAudio:removeEq.repeat(Number(repeat))+'=',
-          recordTime: recordTime,
-          // repeatAudio:o
-        }
-        let arr = [];
-        let audioData = await AsyncStorage.getItem('recording');
-        // console.log(audioData,'audioData')
-        let audioDataParse = JSON.parse(audioData)
-        if (audioDataParse && audioDataParse.length > 0) {
-          arr = [...audioDataParse]
-          arr.push(obj);
-          AsyncStorage.setItem('recording', JSON.stringify(arr))
-        }
-        else {
-          arr = [obj]
-          AsyncStorage.setItem('recording', JSON.stringify(arr))
+      // }).catch(e => console.log(e, 'err ==?> asdasd'))
 
-        }
-
-      }).catch(e => console.log(e, 'err ==?> asdasd'))
-      // MINE APPROACH WITH BASE 64 END
-
-      // RNFS.readFile(`${dirs.CacheDir}/hellos.mp3`,'base64').then(async(o) => {
-      //           RNFS.readFile('hellos.m4a','base64').then(async(o) => {
-      //     let removeEq = o.replace('/=','')
-      //     const obj={
-      //       audioName:recordingName,
-      //       vol:volume,
-      //       repeatNum:repeat,
-      //       originalAudio:o,
-      //       // repeatAudio:o.repeat(Number(repeat)),
-      //       // repeatAudio:removeEq.repeat(Number(repeat))+'=',
-      //       recordTime:recordTime,
-      //       repeatAudio:o
-      //     }
-      //     let arr=[];
-      //     let audioData = await AsyncStorage.getItem('recording'); 
-      //     // console.log(audioData,'audioData')
-      //     let audioDataParse = JSON.parse(audioData)
-      //     if(audioDataParse && audioDataParse.length >0){
-      //   arr=[...audioDataParse]
-      //       arr.push(obj);
-      //   AsyncStorage.setItem('recording',JSON.stringify(arr))
-      //     }
-      //     else{
-      //       arr=[obj]
-      //       AsyncStorage.setItem('recording',JSON.stringify(arr))
-
-      //     }
-      //     // setBaseAudio(o)
-      //     // console.log( o, 'base64 audio')
-      // }).catch(e=>console.log(e,'err ==?> asdasd'))
-      // route.params.getDatas();
-      // navigation.navigate('recording');
     }
   }
+
+  // const saveAudio = async () => {
+  //   if (!recordingName) {
+  //     alert('Enter Recording')
+  //   }
+  //   else {
+  //     setModalVisible(false)
+  //     const result = await audioRecorderPlayer.stopRecorder();
+  //     audioRecorderPlayer.removeRecordBackListener();
+
+  //     setrecordSecs(0);
+  //     setrecordTime('00:00:00')
+  //     // const dirs = RNFetchBlob.fs.dirs;
+
+  //     // const dirs = RNFetchBlob.fs.dirs;
+  //     // const paths = Platform.select({
+  //     //   ios: `hellos.m4a`,
+  //     //   android: `${dirs.CacheDir}/hellos.mp3`,
+  //     // });
+  //     // let ext = Platform.OS=='ios'?'.m4a':'.mp3'
+  //     // let path=`${RNFS.DocumentDirectoryPath}/${recordingName}${ext}`
+  //     // await RNFS.downloadFile({
+  //     //   fromUrl:`file:///${dirs.CacheDir}/hellos${ext}`,
+  //     //   toFile:path,
+  //     //   readTimeout:15000,
+  //     //   connectionTimeout:10000
+  //     // })
+  //     // const obj={
+  //     //         audioName:recordingName,
+  //     //         vol:volume,
+  //     //         pathAudio:path,
+  //     //         repeatNum:repeat,
+  //     //         // originalAudio:o,
+  //     //         // repeatAudio:o.repeat(Number(repeat)),
+  //     //         // repeatAudio:removeEq.repeat(Number(repeat))+'=',
+  //     //         recordTime:recordTime,
+  //     //         // repeatAudio:o
+  //     //       }
+  //     //       let arr=[];
+  //     //       let audioData = await AsyncStorage.getItem('recording'); 
+  //     //       // console.log(audioData,'audioData')
+  //     //       let audioDataParse = JSON.parse(audioData)
+  //     //       if(audioDataParse && audioDataParse.length >0){
+  //     //     arr=[...audioDataParse]
+  //     //         arr.push(obj);
+  //     //     AsyncStorage.setItem('recording',JSON.stringify(arr))
+  //     //       }
+  //     //       else{
+  //     //         arr=[obj]
+  //     //         AsyncStorage.setItem('recording',JSON.stringify(arr))
+
+  //     //       }
+
+  //     // MINE APPROACH WITH BASE 64
+  //     const dirs = RNFetchBlob.fs.dirs;
+  //     const paths = Platform.select({
+  //       ios: `hellos.m4a`,
+  //       android: `${dirs.CacheDir}/hellos.mp3`,
+  //     });
+  //     // console.log(dirs,dirs.CacheDir,'dirs.CacheDir')
+
+  //     // const dirs = RNFetchBlob.fs.dirs;
+  //     let ext = Platform.OS == 'ios' ? '.m4a' : '.mp3';
+  //     let recordingNames = recordingName.replace(/ /g, "");
+  //     let path = `file://${RNFS.DocumentDirectoryPath}/${recordingNames}${ext}`
+  //     RNFS.readFile(`file://${dirs.CacheDir}/hellos${ext}`, 'base64').then(async (o) => {
+  //       setBaseAudio(o)
+  //       console.log(o, 'base64 audio')
+
+  //       RNFS.writeFile(path, o, 'base64').then((e) => { console.log(e, 'success write') })
+  //       const obj = {
+  //         audioName: recordingName,
+  //         vol: volume,
+  //         pathAudio: path,
+  //         repeatNum: repeat,
+  //         // originalAudio:o,
+  //         // repeatAudio:o.repeat(Number(repeat)),
+  //         // repeatAudio:removeEq.repeat(Number(repeat))+'=',
+  //         recordTime: recordTime,
+  //         // repeatAudio:o
+  //       }
+  //       let arr = [];
+  //       let audioData = await AsyncStorage.getItem('recording');
+  //       // console.log(audioData,'audioData')
+  //       let audioDataParse = JSON.parse(audioData)
+  //       if (audioDataParse && audioDataParse.length > 0) {
+  //         arr = [...audioDataParse]
+  //         arr.push(obj);
+  //         AsyncStorage.setItem('recording', JSON.stringify(arr))
+  //       }
+  //       else {
+  //         arr = [obj]
+  //         AsyncStorage.setItem('recording', JSON.stringify(arr))
+
+  //       }
+
+  //     }).catch(e => console.log(e, 'err ==?> asdasd'))
+  //     // MINE APPROACH WITH BASE 64 END
+
+  //     // RNFS.readFile(`${dirs.CacheDir}/hellos.mp3`,'base64').then(async(o) => {
+  //     //           RNFS.readFile('hellos.m4a','base64').then(async(o) => {
+  //     //     let removeEq = o.replace('/=','')
+  //     //     const obj={
+  //     //       audioName:recordingName,
+  //     //       vol:volume,
+  //     //       repeatNum:repeat,
+  //     //       originalAudio:o,
+  //     //       // repeatAudio:o.repeat(Number(repeat)),
+  //     //       // repeatAudio:removeEq.repeat(Number(repeat))+'=',
+  //     //       recordTime:recordTime,
+  //     //       repeatAudio:o
+  //     //     }
+  //     //     let arr=[];
+  //     //     let audioData = await AsyncStorage.getItem('recording'); 
+  //     //     // console.log(audioData,'audioData')
+  //     //     let audioDataParse = JSON.parse(audioData)
+  //     //     if(audioDataParse && audioDataParse.length >0){
+  //     //   arr=[...audioDataParse]
+  //     //       arr.push(obj);
+  //     //   AsyncStorage.setItem('recording',JSON.stringify(arr))
+  //     //     }
+  //     //     else{
+  //     //       arr=[obj]
+  //     //       AsyncStorage.setItem('recording',JSON.stringify(arr))
+
+  //     //     }
+  //     //     // setBaseAudio(o)
+  //     //     // console.log( o, 'base64 audio')
+  //     // }).catch(e=>console.log(e,'err ==?> asdasd'))
+  //     // route.params.getDatas();
+  //     // navigation.navigate('recording');
+  //   }
+  // }
 
 
   // useEffect(async()=>{
@@ -476,7 +539,7 @@ const StartRecording = ({ navigation, route }) => {
           {/* MIDDLE COUNT */}
           <View style={{ marginTop: 80 }}>
             <Text style={{ color: '#707070', textAlign: 'center', fontSize: 14 }}>Recording Time</Text>
-            <Text style={{ color: '#1e90ff', textAlign: 'center', fontSize: 70 }}>{recordTime}</Text>
+            <Text style={{ color: '#1e90ff', textAlign: 'center', fontSize: 70 }}>{recordTimeR}</Text>
             {/* <TouchableOpacity onPress={() => { onStartRecord() }}>
         <Text>Start Recording</Text>
         <Text>{recordTime}</Text>
@@ -523,7 +586,7 @@ const StartRecording = ({ navigation, route }) => {
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                   <Pressable onPress={() => setModalVisible(false)} style={{ height: 40, borderBottomLeftRadius: 20, flex: 1, backgroundColor: '#1E90FF', justifyContent: 'center' }}><Text style={{ fontSize: 22, textAlign: 'center', color: 'white', }}>CANCEL</Text></Pressable>
-                  <Pressable onPress={() => saveAudio()} style={{ height: 40, borderBottomRightRadius: 20, flex: 1, backgroundColor: '#1E90FF', justifyContent: 'center' }}><Text style={{ fontSize: 22, textAlign: 'center', color: 'white' }}>SAVE</Text></Pressable>
+                  <Pressable onPress={() =>{ saveAudio();onStopRecord()}} style={{ height: 40, borderBottomRightRadius: 20, flex: 1, backgroundColor: '#1E90FF', justifyContent: 'center' }}><Text style={{ fontSize: 22, textAlign: 'center', color: 'white' }}>SAVE</Text></Pressable>
                 </View>
               </View>
             </View>
@@ -533,7 +596,7 @@ const StartRecording = ({ navigation, route }) => {
 
       {/* BOTTOM OPTION */}
       <View>
-        {recordingStart ?
+        {/* {recordingStart ?
           recordingPause ?
 
             <TouchableOpacity onPress={() => { resumeRecorder() }}>
@@ -547,12 +610,13 @@ const StartRecording = ({ navigation, route }) => {
             <Image source={playBtn} style={{ width: 100, height: 100, alignSelf: 'center' }} />
           </TouchableOpacity>
 
-        }
+        } */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity onPress={() => onStopRecord()}>
             <Image source={deletered} style={{ margin: 20, height: 20, width: 20 }} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+          <TouchableOpacity onPress={() =>{  dispatch(pauseRecorderR(audioRecorderPlayer));
+ setModalVisible(!modalVisible)}}>
             <Image source={tick} style={{ margin: 20, height: 20, width: 25 }} />
           </TouchableOpacity>
         </View>

@@ -67,7 +67,7 @@ const getData = async () => {
 };
 const {isRecordingScreen}=useSelector(state=>state.navReducer)
 
-console.log(isRecordingScreen,'main Record isRecordingScreen')
+// console.log(isRecordingScreen,'main Record isRecordingScreen')
 
 useEffect(() => {
   (async () => getData())();

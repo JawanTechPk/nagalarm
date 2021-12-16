@@ -1,27 +1,3 @@
-{/* <Tab.Screen
-				name="ListingEdit"
-				component={ListingEditScreen}
-				options={({ navigation }) => ({
-					tabBarButton: () => (
-						<NewListingButton
-							onPress={() =>
-								navigation.navigate(routes.LISTING_EDIT)
-							}
-						/>
-					),
-					tabBarIcon: ({ color, size }) => (
-						<MaterialCommunityIcons
-							name="plus-circle"
-							color={color}
-							size={size}
-						/>
-					),
-				})}
-			/>
- */}
-
-
-
 import React, { useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity,Image } from "react-native";
 // import { MaterialCommunityIcons } from "";
@@ -30,9 +6,11 @@ import {useSelector, useDispatch} from 'react-redux';
 import alarmclock from '../assets/icons/clocks.jpeg'
 import alarmclocks from '../assets/icons/Iconionic-md-alarm.png'
 import iconmiddle from '../assets/icons/iconmiddle.png'
-
-import {tabOpen,tabClosed,bottomTabCloseds,bottomTabOpens} from '../redux/navigateTabRedux/navigate-action'
+import resumeIcon from '../assets/icons/Iconresumes.png'
+import {bottomTabCloseds,bottomTabOpens} from '../redux/navigateTabRedux/navigate-action'
 import playBtn from '../assets/icons/record.png'
+import pause from '../assets/icons/pause.png';
+import { tabOpen,saveAudioR, tabClosed,onStartRecordR,onStopRecordR,resumeRecorderR,pauseRecorderR } from '../redux/navigateTabRedux/navigate-action'
 // import colors from "../config/colors";
 
 function NewListingButton({ onPress,route }) {
@@ -44,7 +22,9 @@ function NewListingButton({ onPress,route }) {
 
 const navigation = useNavigation();
 const dispatch =useDispatch();
-const {isRecordingScreen,isTabBar}=useSelector(state=>state.navReducer)
+const {isRecordingScreen,isTabBar,
+	recordingStart,
+	recordingPause}=useSelector(state=>state.navReducer)
 
 // const { navigation, dangerouslyGetState } = useNavigation()
 
@@ -75,16 +55,23 @@ console.log(isRecordingScreen,isTabBar,"isRecordingScreen 2",routeName)
 		<View>
 {
 (isRecordingScreen && isTabBar)?
-<TouchableOpacity onPress={onPress}>
-			<View style={styles.container}>
-				{/* <MaterialCommunityIcons
-					name="plus-circle"
-					color={colors.white}
-					size={40}
-				/> */}
-                <Image source={playBtn} style={{height:70,width:65,borderRadius:80}} />
-			</View>
+<View>
+{recordingStart ?
+          recordingPause ?
+		  <TouchableOpacity onPress={() => { dispatch(resumeRecorderR()) }}>
+		  <Image source={resumeIcon} style={{ width: 70, height: 70, alignSelf: 'center' }} />
 		</TouchableOpacity>
+		:
+
+		<TouchableOpacity onPress={() => { dispatch(pauseRecorderR()) }}>
+		  <Image source={pause} style={{ width: 70, height: 70, alignSelf: 'center' }} />
+		</TouchableOpacity> : 
+		<TouchableOpacity onPress={() => { dispatch(onStartRecordR()) }}>
+		<Image source={playBtn} style={{ width: 70, height: 70, alignSelf: 'center' }} />
+	  </TouchableOpacity>
+
+}
+</View>
 :
 		<TouchableOpacity onPress={onPress}>
 			<View style={styles.container}>
