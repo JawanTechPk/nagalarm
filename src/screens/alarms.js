@@ -191,7 +191,7 @@ let arr2 = await arr.filter((e)=>e.select == true);
       }
       }
     }
-  }, 10000);
+  }, 50000);
       for (let i = 0; BackgroundJob.isRunning(); i++) {
           console.log('Runned -> ', i);
           // await BackgroundJob.updateNotification({ taskDesc: 'Alam App Is Running' + i });

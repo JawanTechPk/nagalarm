@@ -86,33 +86,33 @@ else{
 // };
 
 
-const pauseRecorderR = async() => {
-	// setRecordingStart(false);
-	// setRecordingPause(true);
-	dispatch(recordPauseR())
-	const dirs = RNFetchBlob.fs.dirs;
-	const path = Platform.select({
-		  ios: `hellos.m4a`,
-		  android: `${dirs.CacheDir}/hellos.mp3`,
-	});
-	console.log(path, 'path pause')
-	const result = await audioRecorderPlayer.pauseRecorder(path);
-	audioRecorderPlayer.addRecordBackListener((e) => {
-		let timeR =audioRecorderPlayer.mmssss(Math.floor(e.currentPosition));
-		let secR = e.currentPosition
-	dispatch(recordPauseRCount(timeR,secR))
-		//   dispatch({
-		// 		type: actionTypes.RECORDPAUSECOUNT,
-		// 		recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-		// 		payload: true, recordSecsR: e.currentPosition,
-		//   })
-		  //   setrecordSecs(e.currentPosition);
-		  //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+// const pauseRecorderR = async() => {
+// 	// setRecordingStart(false);
+// 	// setRecordingPause(true);
+// 	dispatch(recordPauseR())
+// 	const dirs = RNFetchBlob.fs.dirs;
+// 	const path = Platform.select({
+// 		  ios: `hellos.m4a`,
+// 		  android: `${dirs.CacheDir}/hellos.mp3`,
+// 	});
+// 	console.log(path, 'path pause')
+// 	const result = await audioRecorderPlayer.pauseRecorder(path);
+// 	audioRecorderPlayer.addRecordBackListener((e) => {
+// 		let timeR =audioRecorderPlayer.mmssss(Math.floor(e.currentPosition));
+// 		let secR = e.currentPosition
+// 	dispatch(recordPauseRCount(timeR,secR))
+// 		//   dispatch({
+// 		// 		type: actionTypes.RECORDPAUSECOUNT,
+// 		// 		recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
+// 		// 		payload: true, recordSecsR: e.currentPosition,
+// 		//   })
+// 		  //   setrecordSecs(e.currentPosition);
+// 		  //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
 
-		  return;
-	});
+// 		  return;
+// 	});
 
-}
+// }
 
 // console.log(isRecordingScreen,isTabBar,"isRecordingScreen 2",routeName)
 // console.log(routeName,"state.routeNames",state.routeNames,"state.index",state.index,"routeName");
@@ -123,15 +123,14 @@ const pauseRecorderR = async() => {
 		<View>
 {
 (isRecordingScreen && isTabBar)?
-<View>
+<View style={styles.container}>
 {recordingStart ?
           recordingPause ?
 		  <TouchableOpacity onPress={() => { dispatch(resumeRecorderR()) }}>
 		  <Image source={resumeIcon} style={{ width: 70, height: 70, alignSelf: 'center' }} />
 		</TouchableOpacity>
 		:
-
-		<TouchableOpacity onPress={() => { pauseRecorderR() }}>
+		<TouchableOpacity onPress={() => { dispatch(pauseRecorderR()) }}>
 		  <Image source={pause} style={{ width: 70, height: 70, alignSelf: 'center' }} />
 		</TouchableOpacity> : 
 		<TouchableOpacity onPress={() => { dispatch(onStartRecordR()) }}>

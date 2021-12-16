@@ -129,34 +129,36 @@ export const onStopRecordR = () => async (dispatch) => {
 }
 
 
-// export const pauseRecorderR = () => async (dispatch) => {
-//       // setRecordingStart(false);
-//       // setRecordingPause(true);
-//       dispatch({
-//             type: actionTypes.RECORDPAUSE,
-//             payload: true,
-//             recordingStart:true
-//       })
-//       const dirs = RNFetchBlob.fs.dirs;
-//       const path = Platform.select({
-//             ios: `hellos.m4a`,
-//             android: `${dirs.CacheDir}/hellos.mp3`,
-//       });
-//       console.log(path, 'path pause')
-//       const result = await audioRecorderPlayer.pauseRecorder(path);
-//       audioRecorderPlayer.addRecordBackListener((e) => {
-//             dispatch({
-//                   type: actionTypes.RECORDPAUSECOUNT,
-//                   recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-//                   payload: true, recordSecsR: e.currentPosition,
-//             })
-//             //   setrecordSecs(e.currentPosition);
-//             //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+export const pauseRecorderR = () => async (dispatch) => {
+      // setRecordingStart(false);
+      // setRecordingPause(true);
+      const result = await audioRecorderPlayer.stopRecorder();
+      audioRecorderPlayer.removeRecordBackListener();
+      dispatch({
+            type: actionTypes.RECORDPAUSE,
+            payload: false,
+            recordingStart:false
+      })
+      const dirs = RNFetchBlob.fs.dirs;
+      const path = Platform.select({
+            ios: `hellos.m4a`,
+            android: `${dirs.CacheDir}/hellos.mp3`,
+      });
+      console.log(path, 'path pause')
+      // const result = await audioRecorderPlayer.pauseRecorder(path);
+      // audioRecorderPlayer.addRecordBackListener((e) => {
+      //       dispatch({
+      //             type: actionTypes.RECORDPAUSECOUNT,
+      //             recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
+      //             payload: false, recordSecsR: e.currentPosition,
+      //       })
+      //       //   setrecordSecs(e.currentPosition);
+      //       //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
 
-//             return;
-//       });
+      //       return;
+      // });
 
-// }
+}
 
 
 export const resumeRecorderR = () => async (dispatch) => {

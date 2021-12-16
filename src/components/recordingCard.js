@@ -102,7 +102,7 @@ const RecordingCard = ({
   ind,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => setIndexNumber(0)}>
+    <TouchableWithoutFeedback >
   
     <View
       style={{

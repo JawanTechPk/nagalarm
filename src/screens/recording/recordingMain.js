@@ -280,6 +280,7 @@ console.log(duration)
 {
   recordList && recordList.map((val,ind)=>{
     const {vol,audioName,repeatNum,pathAudio,recordTime}=val
+    console.log(val,"valval")
     return <RecordingCard ontrim={()=>{setduration(Number(val.recordTime.replace(/:/g,""))*10);setAudioData(val);trimVisible.open()}} onEdit={(e)=>{editAudio(e,vol,audioName,repeatNum)}} key={ind} optInd={optInd} onDelete={(e)=>deleteAudio(e)} setOptInd={()=>{setOptInd(ind)}} ind={ind}  playVoice={()=>{rbsheet.open();onPlay(vol,pathAudio,recordTime,ind);setSelectedAudioName(audioName)}}   txt={audioName} /> 
   })
 }
@@ -302,7 +303,7 @@ console.log(duration)
             <Text style={styles.modalText}>Recording Name</Text>
             <TextInput value={recordingName} onChangeText={(e)=>setRecordingName(e)} style={{borderBottomColor:'gray',borderBottomWidth:1,height:40}} />
 <Increment val={volume} head="Volume" incr={()=>increVol(volume)} decr={()=>decVol(volume)}/>
-<Increment val={repeat} head="Repeat" incr={()=>increRepeat(repeat)} decr={()=>decRepeat(repeat)}/>
+{/* <Increment val={repeat} head="Repeat" incr={()=>increRepeat(repeat)} decr={()=>decRepeat(repeat)}/> */}
 
            
                   </View>
@@ -462,7 +463,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
   //   padding: 35,
-  height:250,
+  height:208,
     width:'80%',
 
     alignSelf: "center",
