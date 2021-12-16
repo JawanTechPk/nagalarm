@@ -244,7 +244,7 @@ const RecordingCard = ({
             </TouchableOpacity>
           </Menu.Item>
           <Menu.Item>
-          <View>
+          {/* <View>
 
  <View style={{flexDirection:'row',}}> 
  <Image source={paints} style={{width:15,height:15,marginTop:10,marginLeft:10}}/>  
@@ -255,7 +255,7 @@ const RecordingCard = ({
  <View style={{height:10,width:10,borderRadius:10,backgroundColor:'red',marginHorizontal:10}}/>
  <View style={{height:10,width:10,borderRadius:10,backgroundColor:'green'}}/>
  </View>
- </View>
+ </View> */}
  {/* </View> */}
  {/* :null}
  <TouchableOpacity onPress={()=>setOptInd(ind)}>
