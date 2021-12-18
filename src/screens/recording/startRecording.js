@@ -32,6 +32,7 @@ import { useNavigationState } from '@react-navigation/native';
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
 const StartRecording = ({ navigation, route }) => {
+  console.log("enddddddn2222222222222333", isRecordingScreen)
 
   const [modalVisible, setModalVisible] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -65,7 +66,6 @@ const StartRecording = ({ navigation, route }) => {
   // // const navigation = useNavigation()
   // useEffect(() => {
     // const unsubscribe = navigation.addListener('focus', () => {
-    //   console.log("enddddddn2222222222222333", isRecordingScreen)
     //   if (isRecordingScreen)
     //     navigation.navigate("recording")
     //   // The screen is focused
@@ -81,110 +81,6 @@ const StartRecording = ({ navigation, route }) => {
     dispatch(tabOpen()) // true
     return () => { dispatch(tabClosed()) } // false
   }, [])
-
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('focus', () => {
-  //     console.log("enddddddn1111111111111111")
-  //     // The screen is focused
-  //     // Call any action
-  //   });
-
-  //   // Return the function to unsubscribe from the event so it gets removed on unmount
-  //   return unsubscribe;
-  // }, [navigation]);
-
-  // useEffect(()=>{
-  //   console.log("MMMMMMMMMMMMMMMMMMMMM",routeName,isRecordingScreen)
-  //   // // if(isRecordingScreen == false && navigation.isFocused()==true && routeName != "startrecord"){
-  //   //   if(isRecordingScreen == false && navigation.isFocused()==true){
-  //   //   navigation.goBack()
-  //   // }
-  // })
-
-  // useEffect(()=>{
-  // if(navigation.isFocused()==true){
-  //   dispatch(tabOpen())
-  // }
-  // else if(navigation.isFocused()==false){
-  //   dispatch(tabClosed())
-  // }
-  // },[navigation.isFocused()])
-
-  // useEffect(()=>{
-  // if(isRecordingScreen==false){
-  //   navigation.navigate(routeName)
-  // }
-  // },[isRecordingScreen])
-
-  console.log(isRecordingScreen, "isRecordingScreen")
-
-  const onStartRecord = async () => {
-    dispatch(onStartRecordR())
-    // const dirs = RNFetchBlob.fs.dirs;
-    // const path = Platform.select({
-    //   ios: `hellos.m4a`,
-    //   android: `${dirs.CacheDir}/hellos.mp3`,
-    // });
-    // setRecordingStart(true)
-    // // console.log(path, 'path start')
-    // const result = await audioRecorderPlayer.startRecorder(path);
-
-    // // const result = await audioRecorderPlayer.startRecorder();
-    // audioRecorderPlayer.addRecordBackListener((e) => {
-
-    //   setrecordSecs(e.currentPosition);
-    //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
-
-    //   return;
-    // });
-    // console.log(result, 'started');
-  };
-
-  const pauseRecorder = async () => {
-    dispatch(pauseRecorderR())
-    // setRecordingStart(false);
-    // setRecordingPause(true)
-    // const dirs = RNFetchBlob.fs.dirs;
-    // const path = Platform.select({
-    //   ios: `hellos.m4a`,
-    //   android: `${dirs.CacheDir}/hellos.mp3`,
-    // });
-    // console.log(path, 'path pause')
-    // const result = await audioRecorderPlayer.pauseRecorder(path);
-    // audioRecorderPlayer.addRecordBackListener((e) => {
-
-    //   setrecordSecs(e.currentPosition);
-    //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
-
-    //   return;
-    // });
-    // console.log(result, 'started');
-  }
-
-  const getRecordingPath = () => {
-    const dirs = RNFetchBlob.fs.dirs;
-    return Platform.OS === 'ios' ? `${dirs.DocumentDir}/hellos.m4a` : `${dirs.CacheDir}/hellos.mp3`
-  }
-
-  const resumeRecorder = async () => {
-    dispatch(resumeRecorderR())
-    // const dirs = RNFetchBlob.fs.dirs;
-    // const path = Platform.select({
-    //   ios: `hellos.m4a`,
-    //   android: `${dirs.CacheDir}/hellos.mp3`,
-    // });
-    // console.log(path, 'path resume')
-    // setRecordingPause(false)
-    // const result = await audioRecorderPlayer.resumeRecorder(path);
-    // audioRecorderPlayer.addRecordBackListener((e) => {
-
-    //   setrecordSecs(e.currentPosition);
-    //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
-
-    //   return;
-    // });
-    // console.log(result, 'started');
-  }
 
 
   const onStopRecord = async () => {
@@ -243,32 +139,6 @@ const StartRecording = ({ navigation, route }) => {
   };
 
 
-
-  const onStartPlay = async () => {
-    console.log('onStartPlay');
-    const msg = await audioRecorderPlayer.startPlayer("file:////data/user/0/com.nagalarm/cache/hellos.mp3");
-    console.log(msg);
-    audioRecorderPlayer.addPlayBackListener((e) => {
-
-      setcurrentPositionSec(e.currentPosition);
-      setcurrentDurationSec(e.duration);
-      setplayTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
-      setduration(audioRecorderPlayer.mmssss(Math.floor(e.duration)))
-
-      return;
-    });
-  };
-
-  const onPausePlay = async () => {
-    await audioRecorderPlayer.pausePlayer();
-  };
-  const onStopPlay = async () => {
-    console.log('onStopPlay');
-    audioRecorderPlayer.stopPlayer();
-    audioRecorderPlayer.removePlayBackListener();
-  };
-  // console.log(baseAudio,'baseAudio',recordingName);
-
   const increVol = (val) => {
     if (val == 10) {
       alert('Maximum Volume is 10')
@@ -311,7 +181,7 @@ const StartRecording = ({ navigation, route }) => {
       dispatch(saveAudioR(recordingName,
         volume,
 repeat,
-recordTime,))
+recordTimeR,))
       // const result = await audioRecorderPlayer.stopRecorder();
       // audioRecorderPlayer.removeRecordBackListener();
 
@@ -580,7 +450,7 @@ recordTime,))
                   <Text style={styles.modalText}>Recording Name</Text>
                   <TextInput onChangeText={(e) => setRecordingName(e)} style={{ borderBottomColor: 'gray', borderBottomWidth: 1, height: 40 }} />
                   <Increment val={volume} head="Volume" incr={() => increVol(volume)} decr={() => decVol(volume)} />
-                  <Increment val={repeat} head="Repeat" incr={() => increRepeat(repeat)} decr={() => decRepeat(repeat)} />
+                  {/* <Increment val={repeat} head="Repeat" incr={() => increRepeat(repeat)} decr={() => decRepeat(repeat)} /> */}
 
 
                 </View>
@@ -640,7 +510,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     //   padding: 35,
-    height: 250,
+    height: 208,
     width: '80%',
 
     alignSelf: "center",

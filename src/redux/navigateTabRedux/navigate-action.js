@@ -43,6 +43,39 @@ export const bottomTabCloseds = () => async (dispatch) => {
 
 }
 
+export const recordStartR=()=>async(dispatch)=>{
+      dispatch({
+                        type: actionTypes.RECORDSTART,
+                        payload: true
+                  })
+}
+export const recordStartCOunt=(recordTime,recordSecs)=>async(dispatch)=>{
+
+      dispatch({
+                              type: actionTypes.RECORDSTARTCOUNT,
+                              recordTimeR: recordTime,
+                             recordSecsR: recordSecs
+                        })
+}
+
+export const recordPauseR=()=>async(dispatch)=>{
+      dispatch({
+            type: actionTypes.RECORDPAUSE,
+            payload: true,
+            recordingStart:true
+    })
+}
+
+export const recordPauseRCount=(recordTime,recordSecs)=>async(dispatch)=>{
+
+dispatch({
+      type: actionTypes.RECORDPAUSECOUNT,
+      recordTimeR: recordTime,
+      payload: true, recordSecsR: recordSecs,
+})
+
+}
+
 export const onStartRecordR = () => async (dispatch) => {
       console.log(Platform,"Platform start")
       const dirs = RNFetchBlob.fs.dirs;
@@ -72,14 +105,39 @@ export const onStartRecordR = () => async (dispatch) => {
       });
 };
 
+export const onStopRecordR = () => async (dispatch) => {
+      const result = await audioRecorderPlayer.stopRecorder();
+      audioRecorderPlayer.removeRecordBackListener();
+      dispatch({
+            type: actionTypes.RECORDSTOPCOUNT,
+            recordTimeR: '00:00:00',
+            payload: true, recordSecsR: 0,
+      })
+      // setrecordSecs(0);
+      // setrecordTime('00:00:00')
+
+      const dirs = RNFetchBlob.fs.dirs;
+      // console.log(dirs.CacheDir, 'path stop', RNFS.DocumentDirectoryPath)
+      let ext = Platform.OS == 'ios' ? '.m4a' : '.mp3';
+      RNFS.readFile(`file://${dirs.CacheDir}/hellos${ext}`, 'base64').then(o => {
+            //   setBaseAudio(o)
+            console.log(o, 'base64 audio')
+
+            RNFS.writeFile(`file://${RNFS.DocumentDirectoryPath}/hellos${ext}`, o, 'base64').then((e) => { console.log(e) })
+
+      }).catch(e => console.log(e, 'err ==?> asdasd'))
+}
+
 
 export const pauseRecorderR = () => async (dispatch) => {
       // setRecordingStart(false);
       // setRecordingPause(true);
+      const result = await audioRecorderPlayer.stopRecorder();
+      audioRecorderPlayer.removeRecordBackListener();
       dispatch({
             type: actionTypes.RECORDPAUSE,
-            payload: true,
-            recordingStart:true
+            payload: false,
+            recordingStart:false
       })
       const dirs = RNFetchBlob.fs.dirs;
       const path = Platform.select({
@@ -87,18 +145,18 @@ export const pauseRecorderR = () => async (dispatch) => {
             android: `${dirs.CacheDir}/hellos.mp3`,
       });
       console.log(path, 'path pause')
-      const result = await audioRecorderPlayer.pauseRecorder(path);
-      audioRecorderPlayer.addRecordBackListener((e) => {
-            dispatch({
-                  type: actionTypes.RECORDPAUSECOUNT,
-                  recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-                  payload: true, recordSecsR: e.currentPosition,
-            })
-            //   setrecordSecs(e.currentPosition);
-            //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+      // const result = await audioRecorderPlayer.pauseRecorder(path);
+      // audioRecorderPlayer.addRecordBackListener((e) => {
+      //       dispatch({
+      //             type: actionTypes.RECORDPAUSECOUNT,
+      //             recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
+      //             payload: false, recordSecsR: e.currentPosition,
+      //       })
+      //       //   setrecordSecs(e.currentPosition);
+      //       //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
 
-            return;
-      });
+      //       return;
+      // });
 
 }
 
@@ -131,28 +189,7 @@ export const resumeRecorderR = () => async (dispatch) => {
 }
 
 
-export const onStopRecordR = () => async (dispatch) => {
-      const result = await audioRecorderPlayer.stopRecorder();
-      audioRecorderPlayer.removeRecordBackListener();
-      dispatch({
-            type: actionTypes.RECORDSTOPCOUNT,
-            recordTimeR: '00:00:00',
-            payload: true, recordSecsR: 0,
-      })
-      // setrecordSecs(0);
-      // setrecordTime('00:00:00')
 
-      const dirs = RNFetchBlob.fs.dirs;
-      // console.log(dirs.CacheDir, 'path stop', RNFS.DocumentDirectoryPath)
-
-      RNFS.readFile(`file://${dirs.CacheDir}/hellos.m4a`, 'base64').then(o => {
-            //   setBaseAudio(o)
-            console.log(o, 'base64 audio')
-
-            RNFS.writeFile(`file://${RNFS.DocumentDirectoryPath}/hellos.m4a`, o, 'base64').then((e) => { console.log(e) })
-
-      }).catch(e => console.log(e, 'err ==?> asdasd'))
-}
 
 
 

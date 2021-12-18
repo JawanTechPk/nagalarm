@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity,Image } from "react-native";
+import { View, StyleSheet, TouchableOpacity,Image,Platform } from "react-native";
 // import { MaterialCommunityIcons } from "";
 import {useNavigationState,useRoute,useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -10,9 +10,14 @@ import resumeIcon from '../assets/icons/Iconresumes.png'
 import {bottomTabCloseds,bottomTabOpens} from '../redux/navigateTabRedux/navigate-action'
 import playBtn from '../assets/icons/record.png'
 import pause from '../assets/icons/pause.png';
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import RNFetchBlob from 'rn-fetch-blob'
+import RNFS from 'react-native-fs';
 import { tabOpen,saveAudioR, tabClosed,onStartRecordR,onStopRecordR,resumeRecorderR,pauseRecorderR } from '../redux/navigateTabRedux/navigate-action'
+import {recordStartR,recordStartCOunt,recordPauseR,recordPauseRCount} from '../redux/navigateTabRedux/navigate-action'
 // import colors from "../config/colors";
 
+const audioRecorderPlayer = new AudioRecorderPlayer();
 function NewListingButton({ onPress,route }) {
 	// console.log(navigation,"navigation",route);
 	// const routes =useRoute()
@@ -46,7 +51,70 @@ else{
 }
 },[routeName])
 
-console.log(isRecordingScreen,isTabBar,"isRecordingScreen 2",routeName)
+
+// const onStartRecordR = async() => {
+// 	console.log(Platform,"Platform start")
+// 	const dirs = RNFetchBlob.fs.dirs;
+// 	const path = Platform.select({
+// 		  ios: `hellos.m4a`,
+// 		  android: `${dirs.CacheDir}/hellos.mp3`,
+// 	});
+// 	// setRecordingStart(true);
+// 	// dispatch({
+// 	// 	  type: actionTypes.RECORDSTART,
+// 	// 	  payload: true
+// 	// })
+// 	dispatch(recordStartR())
+// 	console.log(path, 'path start')
+// 	const result = await audioRecorderPlayer.startRecorder(path);
+
+
+// 	audioRecorderPlayer.addRecordBackListener((e) => {
+// 		let timeR =audioRecorderPlayer.mmssss(Math.floor(e.currentPosition));
+// let secR = e.currentPosition
+// 		dispatch(recordStartCOunt(timeR,secR))
+// 		//   dispatch({
+// 		// 		type: actionTypes.RECORDSTARTCOUNT,
+// 		// 		recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
+// 		// 		payload: true, recordSecsR: e.currentPosition
+// 		//   })
+// 		  //   setrecordSecs(e.currentPosition);
+// 		  //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+
+// 		  return;
+// 	});
+// };
+
+
+// const pauseRecorderR = async() => {
+// 	// setRecordingStart(false);
+// 	// setRecordingPause(true);
+// 	dispatch(recordPauseR())
+// 	const dirs = RNFetchBlob.fs.dirs;
+// 	const path = Platform.select({
+// 		  ios: `hellos.m4a`,
+// 		  android: `${dirs.CacheDir}/hellos.mp3`,
+// 	});
+// 	console.log(path, 'path pause')
+// 	const result = await audioRecorderPlayer.pauseRecorder(path);
+// 	audioRecorderPlayer.addRecordBackListener((e) => {
+// 		let timeR =audioRecorderPlayer.mmssss(Math.floor(e.currentPosition));
+// 		let secR = e.currentPosition
+// 	dispatch(recordPauseRCount(timeR,secR))
+// 		//   dispatch({
+// 		// 		type: actionTypes.RECORDPAUSECOUNT,
+// 		// 		recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
+// 		// 		payload: true, recordSecsR: e.currentPosition,
+// 		//   })
+// 		  //   setrecordSecs(e.currentPosition);
+// 		  //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
+
+// 		  return;
+// 	});
+
+// }
+
+// console.log(isRecordingScreen,isTabBar,"isRecordingScreen 2",routeName)
 // console.log(routeName,"state.routeNames",state.routeNames,"state.index",state.index,"routeName");
 // const {index, routes} = navigation.dangerouslyGetState();
 // const currentRoute = routes[index].name;
@@ -55,14 +123,13 @@ console.log(isRecordingScreen,isTabBar,"isRecordingScreen 2",routeName)
 		<View>
 {
 (isRecordingScreen && isTabBar)?
-<View>
+<View style={styles.container}>
 {recordingStart ?
           recordingPause ?
 		  <TouchableOpacity onPress={() => { dispatch(resumeRecorderR()) }}>
 		  <Image source={resumeIcon} style={{ width: 70, height: 70, alignSelf: 'center' }} />
 		</TouchableOpacity>
 		:
-
 		<TouchableOpacity onPress={() => { dispatch(pauseRecorderR()) }}>
 		  <Image source={pause} style={{ width: 70, height: 70, alignSelf: 'center' }} />
 		</TouchableOpacity> : 
