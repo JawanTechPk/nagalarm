@@ -182,7 +182,7 @@ let arr2 = await arr.filter((e)=>e.select == true);
       for(var i =0;i<arr2.length;i++){
         console.log(arr2[i].alarmtimeA , newDateHr.toString()+":"+(newDateMn.toString()))
         if(arr2[i].alarmtimeA == newDateHr.toString()+":"+(newDateMn.toString())){
-          invokeApp()
+          // invokeApp()
           onPlay(arr2[i].vol,arr2[i].pathAudio);
           setTimeout(()=>{
             dispatch(modalOpen())
@@ -484,6 +484,7 @@ zoneTime=="AM"?
 
 {
 alarms!=null && alarms && alarms.length > 0 && alarms.map((val,ind)=>{
+  console.log(val,'valll')
     return <AlarmCard key={ind} ellipse={ellipse} 
     editAlarm={()=>editAlarm(ind)}
     optDis={val.optDis} 

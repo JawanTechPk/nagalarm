@@ -69,23 +69,23 @@ return(
 <Image source={deletes} style={{width:24,marginTop:3,height:24}}/>
 <Text style={{fontSize:20,marginLeft:10,color:'gray'}}>Delete</Text>
 </TouchableOpacity>
-{/* <View style={{flexDirection:'row',justifyContent:'space-between',borderTopColor:'gray',borderTopWidth:1,flexDirection:'row',paddingVertical:10}}>
-  <View style={{flexDirection:'row'}}>
+<View style={{flexDirection:'row',justifyContent:'space-between',borderTopColor:'gray',borderTopWidth:1,flexDirection:'row',paddingVertical:10}}>
+  {/* <View style={{flexDirection:'row'}}>
 <Image source={paint} style={{width:24,marginTop:3,height:24}}/>
 <Text style={{fontSize:20,marginLeft:10,color:'gray'}}>Change Theme</Text>
-</View>
+</View> */}
 <View>
-<View style={{flexDirection:'row'}}>
-<View style={{height:15,marginTop:12,width:15,borderRadius:10,backgroundColor:'#1e99fe'}}/>
+<View >
+{/* <View style={{height:15,marginTop:12,width:15,borderRadius:10,backgroundColor:'#1e99fe'}}/>
 <View style={{height:15,marginTop:12,width:15,marginHorizontal:5,borderRadius:10,backgroundColor:'#FF0033'}}/>
-<View style={{height:15,marginTop:12,width:15,borderRadius:10,backgroundColor:'#00DA51'}}/>
-<TouchableOpacity onPress={()=>setOptDis(false)}>
+<View style={{height:15,marginTop:12,width:15,borderRadius:10,backgroundColor:'#00DA51'}}/> */}
+<TouchableOpacity style={{flex:1,justifyContent:"flex-end",flexDirection:"row",width:"100%"}} onPress={()=>setOptDis(false)}>
 <Image source={uparrow} style={{transform: [{ rotate: '180deg'}],height:20,width:20,marginLeft:15,marginTop:10}}/>
 </TouchableOpacity>
 </View>
 </View>
 
-</View> */}
+</View>
 </View>
   :null
 }

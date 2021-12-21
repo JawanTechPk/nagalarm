@@ -297,14 +297,14 @@ else{
   if(data.length > 0){
 console.log(alarmData,'alarmData 1');
 let newArr = [...data];
-let obj = {title,setDate:dates,status:true,repeat:selectDaysTitle,timeAP:hrs+":"+mins,zoneAP:zoneTime,
+let obj = {title,setDate:dates,optDis:false,status:true,repeat:selectDaysTitle,timeAP:hrs+":"+mins,zoneAP:zoneTime,
 alarms:audioSlot};
 newArr.push(obj);
 dispatch(updateData(newArr))
 await AsyncStorage.setItem('alarmsTest',JSON.stringify(newArr));
 }else{
   console.log(alarmData,'alarmData 2')
-  let arr = [{title,setDate:dates,status:true,repeat:selectDaysTitle,timeAP:hrs+":"+mins,zoneAP:zoneTime,
+  let arr = [{title,setDate:dates,optDis:false,status:true,repeat:selectDaysTitle,timeAP:hrs+":"+mins,zoneAP:zoneTime,
   alarms:audioSlot}]
   dispatch(updateData(arr))
  await AsyncStorage.setItem('alarmsTest',JSON.stringify(arr));
@@ -372,9 +372,9 @@ zoneTime=="AM"?
           themeVariant="light"
           locale="es-ES"
         />
-        {/* <TouchableOpacity onPress={()=>setShow(false)} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:20}}>
+        <TouchableOpacity onPress={()=>setShow(false)} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:20}}>
     <Text style={{textAlign:'center',color:'#1e99fe'}}>Done</Text>
-</TouchableOpacity> */}
+</TouchableOpacity>
 
       </View>
       )}
