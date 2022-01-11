@@ -118,7 +118,8 @@ const options = {
   },
 };
 const uptAlmCardData=async(e,ind,prop)=>{
-  let arr = [...almCdData];
+  let arr = await [...alarms];
+  console.log(arr,'ind',ind,'props',prop)
 arr[ind][prop]=e;
 setAlmCdData(arr);
 dispatch(updateData(arr))
@@ -183,6 +184,8 @@ let arr2 = await arr.filter((e)=>e.select == true);
         console.log(arr2[i].alarmtimeA , newDateHr.toString()+":"+(newDateMn.toString()))
         if(arr2[i].alarmtimeA == newDateHr.toString()+":"+(newDateMn.toString())){
           // invokeApp()
+          // Linking.openURL("https://www.google.com/")
+          // Linking.openURL("demos://app/home")
           onPlay(arr2[i].vol,arr2[i].pathAudio);
           setTimeout(()=>{
             dispatch(modalOpen())
@@ -452,6 +455,7 @@ zoneTime=="AM"?
           onChange={onChange}
           themeVariant="light"
           locale="es-ES"
+          style={{height:100}}
         />
 
       </View>
@@ -517,7 +521,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
   //   padding: 35,
-  height:380,
+  height:420,
     width:'80%',
 
     alignSelf: "center",
