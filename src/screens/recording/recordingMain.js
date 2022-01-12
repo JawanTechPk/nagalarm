@@ -275,6 +275,8 @@ console.log(duration)
 </TouchableOpacity>
 {/* <ScrollView style={{flex:1,marginBottom:80,height:'100%'}}>
 <View style={{flex:1,width:'90%',marginLeft:'5%',marginTop:50,}}> */}
+<View style={{height:200}}>
+
 <ScrollView style={{flex:1}}>
 {/* <View style={{backgroundColor:'red',flex:1}}> */}
 {
@@ -286,6 +288,7 @@ console.log(duration)
 }
 {/* </View> */}
 </ScrollView>
+  </View>
 
 <Modal
         animationType="slide"
