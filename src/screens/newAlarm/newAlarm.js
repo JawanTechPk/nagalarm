@@ -388,7 +388,7 @@ zoneTime=="AM"?
       )}
       <View style={{flexDirection:'row'}}>
         <Image source={pencil} style={{margin:20,width:20,height:20}}/>
-        <TextInput onChangeText={(e)=>setTitle(e)} value={title} placeholder="Enter Title" style={{fontSize:20,width:'80%'}}/>
+        <TextInput onChangeText={(e)=>setTitle(e)} placeholderTextColor="gray" value={title} placeholder="Enter Title" style={{fontSize:20,width:'80%'}}/>
       </View>
       <View style={{borderWidth:0.5,borderColor:'gray'}}/>
       <View style={{flexDirection:'row'}}>
