@@ -517,16 +517,16 @@ audioSlot && audioSlot.map((v,i)=>{
 
 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
 
-<TouchableOpacity onPress={()=>setModalVisible(!modalVisible)} style={{flexDirection:'row',height:40,marginLeft:10}}>
-<Image source={plus} style={{width:30,height:30,backgroundColor:'white',zIndex:10}}/>
-<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',left:-10}}>
-<Text style={{color:'white',textAlign:'center'}}>Add Break</Text>
-</View>
-</TouchableOpacity>
 
 <TouchableOpacity onPress={()=>navigation.navigate('addalarm')} style={{flexDirection:'row',height:40,marginRight:10}}>
-<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',right:-10}}>
+<Image source={plus} style={{width:30,height:30,backgroundColor:'white',zIndex:10}}/>
+<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',left:-10}}>
 <Text style={{color:'white',textAlign:'center'}}>Add Recording</Text>
+</View>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>setModalVisible(!modalVisible)} style={{flexDirection:'row',height:40,marginLeft:10}}>
+<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',right:-10}}>
+<Text style={{color:'white',textAlign:'center'}}>Add Break</Text>
 </View>
 <Image source={plus} style={{width:30,height:30,backgroundColor:'white',zIndex:10}}/>
 </TouchableOpacity>

@@ -6,6 +6,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import alarmclock from '../assets/icons/clocks.jpeg'
 import alarmclocks from '../assets/icons/Iconionic-md-alarm.png'
 import iconmiddle from '../assets/icons/iconmiddle.png'
+import splashs from '../assets/icons/splash.png'
 import resumeIcon from '../assets/icons/Iconresumes.png'
 import {bottomTabCloseds,bottomTabOpens} from '../redux/navigateTabRedux/navigate-action'
 import playBtn from '../assets/icons/record.png'
@@ -57,7 +58,7 @@ else{
 		<View>
 {
 (isRecordingScreen && isTabBar)?
-<View style={styles.container}>
+<View style={styles.container2}>
 {recordingStart ?
           recordingPause ?
 		  <TouchableOpacity onPress={() => { dispatch(resumeRecorderR()) }}>
@@ -84,7 +85,7 @@ null:
 					color={colors.white}
 					size={40}
 				/> */}
-					<Image source={iconmiddle} style={{height:70,width:70,borderRadius:80}} />
+					<Image source={splashs} style={{resizeMode:'contain',height:80,width:50,borderRadius:0}} />
 			</View>
 				}
 		</TouchableOpacity>
@@ -95,6 +96,18 @@ null:
 
 const styles = StyleSheet.create({
 	container: {
+		alignItems: "center",
+		backgroundColor: '#1e99fe',
+		borderColor: '#F6F6F6',
+		borderRadius: 0,
+		borderWidth: 20,
+		bottom: 40,
+		height: 100,
+		justifyContent: "center",
+		marginTop:0,
+		width: 70,
+	},
+	container2: {
 		alignItems: "center",
 		backgroundColor: '#1e99fe',
 		borderColor: '#F6F6F6',
