@@ -55,9 +55,17 @@ const NewAlarm = ({navigation,route}) => {
     state => state.modalReducer,
   );
   const [selectDays,setSelectDays]=useState([])
+  const getDataAlarm=async()=>{
+    const alarmData = await AsyncStorage.getItem('alarmsTest');
+    if(!alarmData){
+      await AsyncStorage.setItem('alarmsTest',JSON.stringify([]))
+    }
+  }
   useEffect(()=>{
     checkAlarm();
+    getDataAlarm();
     // rbsheet.open()
+   
   },[])
 
 
@@ -380,7 +388,7 @@ zoneTime=="AM"?
       )}
       <View style={{flexDirection:'row'}}>
         <Image source={pencil} style={{margin:20,width:20,height:20}}/>
-        <TextInput onChangeText={(e)=>setTitle(e)} placeholder="Enter Title" style={{fontSize:20,width:'80%'}}/>
+        <TextInput onChangeText={(e)=>setTitle(e)} value={title} placeholder="Enter Title" style={{fontSize:20,width:'80%'}}/>
       </View>
       <View style={{borderWidth:0.5,borderColor:'gray'}}/>
       <View style={{flexDirection:'row'}}>
@@ -394,7 +402,7 @@ zoneTime=="AM"?
 
        <DateTimePicker
        testID="dateTimePicker"
-       value={date}
+       value={dates}
        mode={modes}
        is24Hour={true}
        display="spinner"

@@ -12,8 +12,9 @@ import ToggleSwitch from 'toggle-switch-react-native'
 import dropDown from '../assets/icons/dropdown.png'
 import deletes from '../assets/icons/trash.png'
 import uparrow from '../assets/icons/arrow-up.png'
-const AlarmCard = ({editAlarm,deleteAudio,alarnName,alarmTime,alarmKind,alarmType,ellipse,optDis=false,setOptDis,tg,setTg}) => {
-return(
+const AlarmCard = ({editAlarm,deleteAudio,alarnName,alarmTime,alarmKind,alarmType,ellipse,optDis,setOptDis,tg,setTg}) => {
+console.log(optDis,'optDis')
+  return(
 
 <View style={{marginBottom:10,marginTop:10,width:'100%',backgroundColor:'white',paddingVertical:10,borderRadius:10,elevation:3,paddingLeft:10,paddingRight:10}}>
 
@@ -70,15 +71,8 @@ return(
 <Text style={{fontSize:20,marginLeft:10,color:'gray'}}>Delete</Text>
 </TouchableOpacity>
 <View style={{flexDirection:'row',justifyContent:'space-between',borderTopColor:'gray',borderTopWidth:1,flexDirection:'row',paddingVertical:10}}>
-  {/* <View style={{flexDirection:'row'}}>
-<Image source={paint} style={{width:24,marginTop:3,height:24}}/>
-<Text style={{fontSize:20,marginLeft:10,color:'gray'}}>Change Theme</Text>
-</View> */}
 <View>
 <View >
-{/* <View style={{height:15,marginTop:12,width:15,borderRadius:10,backgroundColor:'#1e99fe'}}/>
-<View style={{height:15,marginTop:12,width:15,marginHorizontal:5,borderRadius:10,backgroundColor:'#FF0033'}}/>
-<View style={{height:15,marginTop:12,width:15,borderRadius:10,backgroundColor:'#00DA51'}}/> */}
 <TouchableOpacity style={{flex:1,justifyContent:"flex-end",flexDirection:"row",width:"100%"}} onPress={()=>setOptDis(false)}>
 <Image source={uparrow} style={{transform: [{ rotate: '180deg'}],height:20,width:20,marginLeft:15,marginTop:10}}/>
 </TouchableOpacity>
