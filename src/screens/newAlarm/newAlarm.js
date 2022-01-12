@@ -41,7 +41,7 @@ const NewAlarm = ({navigation,route}) => {
   const [modes, setModes] = useState('date');
   const [shows, setShows] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const [selectDaysTitle, setSelectDaysTitle] = useState('Select Days');
+  const [selectDaysTitle, setSelectDaysTitle] = useState('Repeat');
   const [selectDate, setSelectDate] = useState('6/11/2021');
   const [breakMin,setBreakMin] = useState(0) 
   const [modalVisible, setModalVisible] = useState(false);
