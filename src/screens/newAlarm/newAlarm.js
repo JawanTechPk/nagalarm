@@ -343,7 +343,7 @@ const deleteSlots=(indx)=>{
   <TouchableOpacity onPress={()=>navigation.navigate('alarmnav')}>
 <Text style={{fontSize:14,marginLeft:10,color:'#1e99fe'}}>Cancel</Text>
   </TouchableOpacity>
-<Text style={{fontSize:24,marginTop:-10,color:'gray'}}>Add Alarm</Text>
+<Text style={{fontSize:24,marginTop:-10,color:'gray'}}>Add a new NAG</Text>
 <TouchableOpacity onPress={()=>saveAlarm()}>
 <Text style={{fontSize:14,marginRight:10,color:'#1e99fe'}}>Save</Text>
 </TouchableOpacity>
