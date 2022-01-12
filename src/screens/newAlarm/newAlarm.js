@@ -520,7 +520,7 @@ audioSlot && audioSlot.map((v,i)=>{
 
 <TouchableOpacity onPress={()=>navigation.navigate('addalarm')} style={{flexDirection:'row',height:40,marginRight:10}}>
 <Image source={plus} style={{width:30,height:30,backgroundColor:'white',zIndex:10}}/>
-<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',left:-10}}>
+<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:130,position:'relative',justifyContent:'center',left:-10}}>
 <Text style={{color:'white',textAlign:'center'}}>Add Recording</Text>
 </View>
 </TouchableOpacity>
