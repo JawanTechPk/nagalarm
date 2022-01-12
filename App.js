@@ -23,8 +23,10 @@ import SplashScreen from 'react-native-splash-screen'
 import {Provider} from 'react-redux';
 import store from './src/redux/store';
 import MainNavi from './src/config/navigation'
+import MainNaviTwo from './src/config/mainNavi'
 import BackgroundJob from 'react-native-background-actions';
 import SajjadLaunchApplication from 'react-native-launch-application';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import invokeApp from 'react-native-invoke-app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {checkDays} from './src/util/days';
@@ -68,7 +70,8 @@ Linking.addEventListener('url', handleOpenURL);
 
 const App = () => {
 //  1e90ff
-
+const [firstLaunch, setFirstLaunch] = useState(null);
+const [showCom, setShowCom] = useState(false);
 // const dispatch = useDispatch();
 
 
@@ -183,18 +186,42 @@ const perAsk = async () => {
     }
   }
 }
+const checkStat=()=>{
+  setTimeout(() => {
+    setShowCom(true)
+  }, 2000);
+}
 
-  useEffect(() => {
+  useEffect(async() => {
     perAsk();
+    checkStat()
     SplashScreen.hide();
+ const datas =  await  AsyncStorage.getItem('firstlaunch');
+console.log(datas,'datas')
+if(datas== null){
+ await AsyncStorage.setItem("firstlaunch",JSON.stringify(true))
+  setFirstLaunch(true)
+}else{
+  setFirstLaunch(false)
+}
+ //     AsyncStorage.getItem('firstlaunch').then(value=>{
+//     })
     // toggleBackground()
   }, []);
 
-
+  
+console.log(firstLaunch,'firstLaunch')
   return (
     <Provider store={store}>
       <NativeBaseProvider>
-<MainNavi />
+        {
+showCom ?
+firstLaunch?
+<MainNaviTwo />
+:
+          <MainNavi cond={firstLaunch}/>
+        :null
+        }
 </NativeBaseProvider>
     </Provider>
 

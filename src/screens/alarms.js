@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import archieve from '../assets/icons/archieve.png'
+import splash from '../assets/icons/splash.png'
 import previous from '../assets/icons/previous.png'
 import ellipse from '../assets/icons/Ellipse.png'
 import AlarmCard from '../components/alarmCard';
@@ -119,7 +120,7 @@ const options = {
 };
 const uptAlmCardData=async(e,ind,prop)=>{
   let arr = await [...alarms];
-  console.log(arr,'ind',ind,'props',prop)
+  // console.log(arr,'ind',ind,'props',prop)
 arr[ind][prop]=e;
 setAlmCdData(arr);
 dispatch(updateData(arr))
@@ -145,7 +146,7 @@ const taskRandom = async () => {
       // setInterval(() => {
       //     console.log(BackgroundJob.isRunning())
       // }, 5000);
-      console.log(BackgroundJob.isRunning(),"BackgroundJob.isRunning()")
+      // console.log(BackgroundJob.isRunning(),"BackgroundJob.isRunning()")
   // setInterval(() => {
   //   // SajjadLaunchApplication.open("com.nagalarm");
   //   // const yourObject = { route: 'tabnavigator' };
@@ -162,26 +163,26 @@ const taskRandom = async () => {
   setInterval(async() => {
     // const alarmDataPr = JSON.parse(alarmData);
     const alarmData = await AsyncStorage.getItem('alarmsTest');
-    console.log(alarmData,'alarmDataalarmData')
+    // console.log(alarmData,'alarmDataalarmData')
     // let alarmDataPr = alarms
     const alarmDataPr = JSON.parse(alarmData);
-    console.log(alarmDataPr,'alarmDataPr');
+    // console.log(alarmDataPr,'alarmDataPr');
     if(alarmDataPr.length > 0){
       let arr = []
       const dateSort = await alarmDataPr.filter((e)=>checkDays(e.setDate) < 1) ;
-      console.log(dateSort,'dateSort')
+      // console.log(dateSort,'dateSort')
       const sortData = await dateSort.filter((e)=>e.status == true);
       // console.log(sortData[0].alarms,"alarmDataPr")
       for(var i = 0;i<sortData.length;i++){
         arr=[...arr,...sortData[i].alarms]
       }
 let arr2 = await arr.filter((e)=>e.select == true);
-      console.log(arr2,arr2.length,'arr2')
+      // console.log(arr2,arr2.length,'arr2')
       let newDateHr = new Date().getHours();
       let newDateMn = new Date().getMinutes() < 10 ? "0"+new Date().getMinutes():new Date().getMinutes() ;
       // console.log(alarmData.hrs+alarmData.mins , newDateHr.toString()+(0+newDateMn.toString()))
       for(var i =0;i<arr2.length;i++){
-        console.log(arr2[i].alarmtimeA , newDateHr.toString()+":"+(newDateMn.toString()))
+        // console.log(arr2[i].alarmtimeA , newDateHr.toString()+":"+(newDateMn.toString()))
         if(arr2[i].alarmtimeA == newDateHr.toString()+":"+(newDateMn.toString())){
           // invokeApp()
           // Linking.openURL("https://www.google.com/")
@@ -196,7 +197,7 @@ let arr2 = await arr.filter((e)=>e.select == true);
     }
   }, 50000);
       for (let i = 0; BackgroundJob.isRunning(); i++) {
-          console.log('Runned -> ', i);
+          // console.log('Runned -> ', i);
           // await BackgroundJob.updateNotification({ taskDesc: 'Alam App Is Running' + i });
           await sleep(1000);
       }
@@ -209,9 +210,9 @@ const toggleBackground = async () => {
   // console.log(this.playing,"this.playing 1",BackgroundJob.isRunning())
   if (this.playing) {
       try {
-          console.log('Trying to start background service');
+          // console.log('Trying to start background service');
           await BackgroundJob.start(taskRandom, options);
-          console.log('Successful start!');
+          // console.log('Successful start!');
       } catch (e) {
           console.log('Error', e);
       }
@@ -222,6 +223,7 @@ const toggleBackground = async () => {
 };
 
 const getDataAlarm=async()=>{
+
   const alarmData = await AsyncStorage.getItem('alarmsTest');
   if(!alarmData){
     await AsyncStorage.setItem('alarmsTest',JSON.stringify([]))
@@ -235,26 +237,16 @@ const getDataAlarm=async()=>{
 // },[AsyncStorage])
 
 useEffect(async()=>{
+  // await AsyncStorage.setItem("firstTimeCome",JSON.stringify({_U:1}))
+  
   dispatch(fetchData());
   getDataAlarm();
 let res = await AsyncStorage.getItem("firstTime");
-console.log(res,'resresres',)
+// console.log(res,'resresres',)
 if(!res){
   toggleBackground()
   await AsyncStorage.setItem("firstTime",JSON.stringify(true));
 }
-  // await AsyncStorage.setItem('alarmsTest',JSON.stringify([{"title":"Alarm 1","setDate":"2021-12-04T12:04:55.729Z","status":true,"repeat":"Daily","timeAP":"09:18","zoneAP":"PM","alarms":[{"audioName":"2","vol":9,"pathAudio":"file:///data/user/0/com.nagalarm/files/2.mp3","repeatNum":1,"recordTime":"00:16:54","select":true,"mins":"04","alarmTimeP":"09:18","zoneP":"PM","alarmtimeA":"21:18"},{"audioName":"break","status":false,"pathAudio":"file:///data/user/0/com.nagalarm/files/2.mp3","recordTime":"","repeatNum":1,"select":false,"vol":9,"mins":"10","alarmTimeP":"05:14","zoneP":"PM","alarmtimeA":"17:14"},{"audioName":"1","vol":1,"pathAudio":"file:///data/user/0/com.nagalarm/files/1.mp3","repeatNum":1,"recordTime":"00:03:01","select":true,"mins":1,"alarmTimeP":"06:21","zoneP":"PM","alarmtimeA":"21:21"}]},{"title":"Alarm 1","setDate":"2021-12-04T12:04:55.729Z","status":true,"repeat":"Daily","timeAP":"09:23","zoneAP":"PM","alarms":[{"audioName":"2","vol":9,"pathAudio":"file:///data/user/0/com.nagalarm/files/2.mp3","repeatNum":1,"recordTime":"00:16:54","select":true,"mins":"04","alarmTimeP":"09:23","zoneP":"PM","alarmtimeA":"21:23"},{"audioName":"break","status":false,"pathAudio":"file:///data/user/0/com.nagalarm/files/2.mp3","recordTime":"","repeatNum":1,"select":false,"vol":9,"mins":"10","alarmTimeP":"05:14","zoneP":"PM","alarmtimeA":"17:14"},{"audioName":"1","vol":1,"pathAudio":"file:///data/user/0/com.nagalarm/files/1.mp3","repeatNum":1,"recordTime":"00:03:01","select":true,"mins":1,"alarmTimeP":"09:23","zoneP":"PM","alarmtimeA":"21:24"}]}]))
-          // const alarmData = await AsyncStorage.getItem('alarmsTest');
-          // if(!alarmData){
-          //   await AsyncStorage.setItem('alarmsTest',JSON.stringify([]))
-          // }
-          // let dataUp = JSON.parse(alarmData)
-          // setAlmCdData(dataUp)
-  // setbackAc(true)
-  // toggleBackground()
-  // let dataUp2 = await AsyncStorage.getItem('archieveAlarm');
-  // console.log(dataUp2,'dataUp2')
-  // let dataUp2 = await AsyncStorage.getItem('archieveAlarm');
 },[])
 
 
@@ -280,7 +272,7 @@ const handleDatePicked = () => {
     return;
   }
   const fireDate = ReactNativeAN.parseDate(datetime);
-  console.log('A date has been picked: ', fireDate);
+  // console.log('A date has been picked: ', fireDate);
 
   const alarmNotifData = {
     id: makeid(), // Required
@@ -313,16 +305,16 @@ const handleDatePicked = () => {
 
 
 const deleteAudio=async(ind)=>{
-console.log(ind,alarms)
+// console.log(ind,alarms)
 let arr =[...alarms];
 let abtArr= arr.slice(ind,ind+1);
 arr.splice(ind,1)
-console.log(abtArr,"abtArr");
-console.log(arr,"arrarr");
+// console.log(abtArr,"abtArr");
+// console.log(arr,"arrarr");
 // setAlmCdData(arr);
 let res =  await AsyncStorage.getItem('archieveAlarm');
 let res2 = JSON.parse(res);
-console.log(res2)
+// console.log(res2)
 let res4 = res2==null ?[]:res2 
 let res3 = [...res4,...abtArr]
 await AsyncStorage.setItem('archieveAlarm',JSON.stringify(res3))
@@ -373,11 +365,11 @@ setMins(min);
 //   setAlmCdData(alarms)
 // },[alarms])
 
-console.log(alarms,'alarmsalarms')
+// console.log(alarms,'alarmsalarms')
 
 const saveAlarm=async()=>{
   let arr = [...alarms]
-  console.log(arr[editAlInd],hrs+":"+mins,zoneTime)
+  // console.log(arr[editAlInd],hrs+":"+mins,zoneTime)
   // arr[editAlInd].timeAP=hrs+":"+mins;
   // arr[editAlInd].zoneAP=zoneTime,
   // arr[editAlInd].alarms=adjustTime(hrs,mins,arr[editAlInd].alarms,date,zoneTime);
@@ -475,20 +467,23 @@ zoneTime=="AM"?
   <Image style={{height:25,width:25}} source={archieve}/>
 </TouchableOpacity> */}
 <View />
-  <TouchableOpacity style={{marginRight:20,marginTop:20}} onPress={()=>navigation.navigate('archieve',{getDataAlarm})}>
+  <TouchableOpacity style={{marginRight:20,marginTop:0}} onPress={()=>navigation.navigate('archieve',{getDataAlarm})}>
   <Image style={{height:25,width:25}} source={archieve}/>
 </TouchableOpacity>
 </View>
 
 {/* MAIN BODY */}
-<View style={{marginLeft:'5%',width:'90%',marginTop:20}}>
-<Text style={{fontSize:20,fontWeight:'bold'}}>Nag List</Text>
-<View style={{borderBottomColor:'gray',borderBottomWidth:0.5,marginTop:20}}/>
+<View style={{marginLeft:'5%',width:'90%',marginTop:-30}}>
+  <View style={{flexDirection:'row'}}>
+<Image source={splash} style={{ height: 100,resizeMode:'contain', width: 63,marginRight:10 }} />
+<Text style={{fontSize:20,fontWeight:'bold',marginTop:80}}>Nag List</Text>
+  </View>
+<View style={{borderBottomColor:'gray',borderBottomWidth:0.5,marginTop:10}}/>
 <ScrollView style={{marginBottom:105}} showsVerticalScrollIndicator={false}>
 
 {
 alarms!=null && alarms && alarms.length > 0 && alarms.map((val,ind)=>{
-  console.log(val,'valll')
+  // console.log(val,'valll')
     return <AlarmCard key={ind} ellipse={ellipse} 
     editAlarm={()=>editAlarm(ind)}
     optDis={val.optDis} 
