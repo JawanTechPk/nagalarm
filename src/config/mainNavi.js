@@ -73,7 +73,7 @@ const TabNavigator = () => {
      
     return (
         <Tab.Navigator 
-        initialRouteName="newalarmnav"
+        initialRouteName="alarmnav"
         // initialRouteName={datas._U==0?"alarmnav":"newalarmnav"}
             screenOptions={(options) => {
           
@@ -199,7 +199,6 @@ function AlarmNavs() {
 };
 
 function MainNavi() {
-    // console.log(cond,'cond')
     return (
         <NavigationContainer screenOptions={{headerShown: false }}>
             <AlarmNavs />

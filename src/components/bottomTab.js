@@ -52,73 +52,7 @@ else{
 },[routeName])
 
 
-// const onStartRecordR = async() => {
-// 	console.log(Platform,"Platform start")
-// 	const dirs = RNFetchBlob.fs.dirs;
-// 	const path = Platform.select({
-// 		  ios: `hellos.m4a`,
-// 		  android: `${dirs.CacheDir}/hellos.mp3`,
-// 	});
-// 	// setRecordingStart(true);
-// 	// dispatch({
-// 	// 	  type: actionTypes.RECORDSTART,
-// 	// 	  payload: true
-// 	// })
-// 	dispatch(recordStartR())
-// 	console.log(path, 'path start')
-// 	const result = await audioRecorderPlayer.startRecorder(path);
 
-
-// 	audioRecorderPlayer.addRecordBackListener((e) => {
-// 		let timeR =audioRecorderPlayer.mmssss(Math.floor(e.currentPosition));
-// let secR = e.currentPosition
-// 		dispatch(recordStartCOunt(timeR,secR))
-// 		//   dispatch({
-// 		// 		type: actionTypes.RECORDSTARTCOUNT,
-// 		// 		recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-// 		// 		payload: true, recordSecsR: e.currentPosition
-// 		//   })
-// 		  //   setrecordSecs(e.currentPosition);
-// 		  //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
-
-// 		  return;
-// 	});
-// };
-
-
-// const pauseRecorderR = async() => {
-// 	// setRecordingStart(false);
-// 	// setRecordingPause(true);
-// 	dispatch(recordPauseR())
-// 	const dirs = RNFetchBlob.fs.dirs;
-// 	const path = Platform.select({
-// 		  ios: `hellos.m4a`,
-// 		  android: `${dirs.CacheDir}/hellos.mp3`,
-// 	});
-// 	console.log(path, 'path pause')
-// 	const result = await audioRecorderPlayer.pauseRecorder(path);
-// 	audioRecorderPlayer.addRecordBackListener((e) => {
-// 		let timeR =audioRecorderPlayer.mmssss(Math.floor(e.currentPosition));
-// 		let secR = e.currentPosition
-// 	dispatch(recordPauseRCount(timeR,secR))
-// 		//   dispatch({
-// 		// 		type: actionTypes.RECORDPAUSECOUNT,
-// 		// 		recordTimeR: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-// 		// 		payload: true, recordSecsR: e.currentPosition,
-// 		//   })
-// 		  //   setrecordSecs(e.currentPosition);
-// 		  //   setrecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)))
-
-// 		  return;
-// 	});
-
-// }
-
-// console.log(isRecordingScreen,isTabBar,"isRecordingScreen 2",routeName)
-// console.log(routeName,"state.routeNames",state.routeNames,"state.index",state.index,"routeName");
-// const {index, routes} = navigation.dangerouslyGetState();
-// const currentRoute = routes[index].name;
-// console.log('current screen', navigation);
 	return (
 		<View>
 {
@@ -140,15 +74,19 @@ else{
 }
 </View>
 :
-		<TouchableOpacity onPress={onPress}>
+<TouchableOpacity onPress={onPress}>
+{
+	routeName == "alarmnav"?
+null:
 			<View style={styles.container}>
 				{/* <MaterialCommunityIcons
 					name="plus-circle"
 					color={colors.white}
 					size={40}
 				/> */}
-                <Image source={iconmiddle} style={{height:70,width:70,borderRadius:80}} />
+					<Image source={iconmiddle} style={{height:70,width:70,borderRadius:80}} />
 			</View>
+				}
 		</TouchableOpacity>
 			}
 				</View>
