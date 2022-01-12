@@ -41,7 +41,7 @@ const NewAlarm = ({navigation,route}) => {
   const [modes, setModes] = useState('date');
   const [shows, setShows] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const [selectDaysTitle, setSelectDaysTitle] = useState('Select Days');
+  const [selectDaysTitle, setSelectDaysTitle] = useState('Repeat');
   const [selectDate, setSelectDate] = useState('6/11/2021');
   const [breakMin,setBreakMin] = useState(0) 
   const [modalVisible, setModalVisible] = useState(false);
@@ -343,7 +343,7 @@ const deleteSlots=(indx)=>{
   <TouchableOpacity onPress={()=>navigation.navigate('alarmnav')}>
 <Text style={{fontSize:14,marginLeft:10,color:'#1e99fe'}}>Cancel</Text>
   </TouchableOpacity>
-<Text style={{fontSize:24,marginTop:-10,color:'gray'}}>Add Alarm</Text>
+<Text style={{fontSize:24,marginTop:-10,color:'gray'}}>Add a new NAG</Text>
 <TouchableOpacity onPress={()=>saveAlarm()}>
 <Text style={{fontSize:14,marginRight:10,color:'#1e99fe'}}>Save</Text>
 </TouchableOpacity>
@@ -388,7 +388,7 @@ zoneTime=="AM"?
       )}
       <View style={{flexDirection:'row'}}>
         <Image source={pencil} style={{margin:20,width:20,height:20}}/>
-        <TextInput onChangeText={(e)=>setTitle(e)} value={title} placeholder="Enter Title" style={{fontSize:20,width:'80%'}}/>
+        <TextInput onChangeText={(e)=>setTitle(e)} placeholderTextColor="gray" value={title} placeholder="Enter Title" style={{fontSize:20,width:'80%'}}/>
       </View>
       <View style={{borderWidth:0.5,borderColor:'gray'}}/>
       <View style={{flexDirection:'row'}}>
@@ -517,16 +517,16 @@ audioSlot && audioSlot.map((v,i)=>{
 
 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
 
-<TouchableOpacity onPress={()=>setModalVisible(!modalVisible)} style={{flexDirection:'row',height:40,marginLeft:10}}>
-<Image source={plus} style={{width:30,height:30,backgroundColor:'white',zIndex:10}}/>
-<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',left:-10}}>
-<Text style={{color:'white',textAlign:'center'}}>Add Break</Text>
-</View>
-</TouchableOpacity>
 
 <TouchableOpacity onPress={()=>navigation.navigate('addalarm')} style={{flexDirection:'row',height:40,marginRight:10}}>
-<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',right:-10}}>
+<Image source={plus} style={{width:30,height:30,backgroundColor:'white',zIndex:10}}/>
+<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:130,position:'relative',justifyContent:'center',left:-10}}>
 <Text style={{color:'white',textAlign:'center'}}>Add Recording</Text>
+</View>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>setModalVisible(!modalVisible)} style={{flexDirection:'row',height:40,marginLeft:10}}>
+<View style={{backgroundColor:'#1e99fe',height:32,top:0,borderRadius:20,width:120,position:'relative',justifyContent:'center',right:-10}}>
+<Text style={{color:'white',textAlign:'center'}}>Add Break</Text>
 </View>
 <Image source={plus} style={{width:30,height:30,backgroundColor:'white',zIndex:10}}/>
 </TouchableOpacity>
