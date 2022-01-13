@@ -32,6 +32,7 @@ import Increment from '../../components/increment';
 import Slider from '@react-native-community/slider';
 import Trimmer from 'react-native-trimmer'
 import {useSelector, useDispatch} from 'react-redux';
+import StartRecording from './startRecording2'
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
@@ -59,6 +60,7 @@ const [sliderEnd, setSliderEnd] = useState(5000);
 const [leftTrim,setLeftTrim] = useState(0);
 const [rightTrim,setRightTrim] = useState(0);
 const [audioData,setAudioData]=useState("")
+const [recordingShow,setRecordingShow]=useState(false)
 const getData = async () => {
   // await AsyncStorage.removeItem('recording');
   let userdata = await AsyncStorage.getItem('recording');
@@ -68,6 +70,12 @@ const getData = async () => {
 const {isRecordingScreen}=useSelector(state=>state.navReducer)
 
 // console.log(isRecordingScreen,'main Record isRecordingScreen')
+
+useEffect(() => {
+  setTimeout(() => {
+    (async () => getData())();
+  }, 1000);
+}, [recordingShow]);
 
 useEffect(() => {
   (async () => getData())();
@@ -269,13 +277,14 @@ console.log(duration)
     <SafeAreaView style={{flex:1,height:'100%'}} >
       <TouchableWithoutFeedback  onPress={()=>setOptInd('10000')}>
         <View style={{flex:1,height:'100%'}}>
-      <TouchableOpacity onPress={()=>navigation.navigate('startrecord',{getDatas:getData})}>
+      {/* <TouchableOpacity onPress={()=>navigation.navigate('startrecord',{getDatas:getData})}> */}
+      <TouchableOpacity onPress={()=>setRecordingShow(true)}>
 <Image source={recordImg} style={{width:90,height:100,marginTop:50,alignSelf:'center'}}/>
 <Text style={{fontSize:20,color:'#707070',textAlign:'center',marginTop:5}}>Create Recording</Text>
 </TouchableOpacity>
 {/* <ScrollView style={{flex:1,marginBottom:80,height:'100%'}}>
 <View style={{flex:1,width:'90%',marginLeft:'5%',marginTop:50,}}> */}
-<View style={{height:200}}>
+<View style={{height:180}}>
 
 <ScrollView style={{flex:1}}>
 {/* <View style={{backgroundColor:'red',flex:1}}> */}
@@ -289,7 +298,11 @@ console.log(duration)
 {/* </View> */}
 </ScrollView>
   </View>
-
+  {
+recordingShow?
+    <StartRecording  closedRecord={(val)=>setRecordingShow(val)}/>
+    :null
+  }
 <Modal
         animationType="slide"
         transparent={true}
