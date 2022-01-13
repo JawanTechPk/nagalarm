@@ -15,7 +15,7 @@ import {
   Platform,TouchableWithoutFeedback
 } from 'react-native';
 // import recordImg from '../../assets/icons/Group73.png'
-import recordImg from '../../assets/icons/recordss.jpeg'
+import recordImg from '../../assets/icons/records.png'
 import forwards from '../../assets/icons/forwards.png'
 import backward from '../../assets/icons/backward.png'
 import moon from '../../assets/icons/new-moon.png'
