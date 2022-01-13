@@ -384,7 +384,7 @@ arr[editAlInd]={...arr[editAlInd],timeAP:hrs+":"+mins,zoneAP:zoneTime,alarms:adj
   return (
     <SafeAreaView style={{flex:1,height:100,}}>
  
-<View style={{flexDirection:'row',justifyContent:'space-between',marginTop:Platform.OS=='ios'?30:0}}>
+<View style={{flexDirection:'row',justifyContent:'space-between',marginTop:Platform.OS=='ios'?20:0}}>
 <Modal
         animationType="slide"
         transparent={true}
@@ -467,11 +467,15 @@ zoneTime=="AM"?
   <Image style={{height:25,width:25}} source={archieve}/>
 </TouchableOpacity> */}
 <View />
-  <TouchableOpacity style={{marginRight:20,marginTop:0}} onPress={()=>navigation.navigate('archieve',{getDataAlarm})}>
+  {/* <TouchableOpacity style={{zIndex:5,marginRight:20,marginTop:30}} onPress={()=>{console.log('hello');navigation.navigate('archieve',{getDataAlarm})}}>
+  <Image style={{height:25,width:25}} source={archieve}/>
+</TouchableOpacity> */}
+</View>
+<View style={{zIndex:3,flexDirection:'row',justifyContent:'flex-end'}}>
+<TouchableOpacity style={{marginRight:20,marginTop:30}} onPress={()=>{console.log('hello');navigation.navigate('archieve',{getDataAlarm})}}>
   <Image style={{height:25,width:25}} source={archieve}/>
 </TouchableOpacity>
 </View>
-
 {/* MAIN BODY */}
 <View style={{marginLeft:'5%',width:'90%',marginTop:-30}}>
   <View style={{flexDirection:'row'}}>

@@ -159,6 +159,7 @@ const TabNavigator = () => {
      
             options={({ navigation,route }) => ({
                 tabBarVisible:false,
+                headerShown:false,
                 tabBarButton: () => (
                     <ListingEditScreen
                     navigation={navigation}
