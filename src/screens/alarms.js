@@ -184,7 +184,7 @@ let arr2 = await arr.filter((e)=>e.select == true);
       for(var i =0;i<arr2.length;i++){
         // console.log(arr2[i].alarmtimeA , newDateHr.toString()+":"+(newDateMn.toString()))
         if(arr2[i].alarmtimeA == newDateHr.toString()+":"+(newDateMn.toString())){
-          // invokeApp()
+          invokeApp()
           // Linking.openURL("https://www.google.com/")
           // Linking.openURL("demos://app/home")
           onPlay(arr2[i].vol,arr2[i].pathAudio);
@@ -197,7 +197,7 @@ let arr2 = await arr.filter((e)=>e.select == true);
     }
   }, 50000);
       for (let i = 0; BackgroundJob.isRunning(); i++) {
-          // console.log('Runned -> ', i);
+          console.log('Runned -> ', i);
           // await BackgroundJob.updateNotification({ taskDesc: 'Alam App Is Running' + i });
           await sleep(1000);
       }
@@ -477,14 +477,16 @@ zoneTime=="AM"?
 </TouchableOpacity>
 </View>
 {/* MAIN BODY */}
-<View style={{marginLeft:'5%',width:'90%',marginTop:-30}}>
+<View style={{marginTop:-30,width:'90%',alignSelf:"center"}}>
   <View style={{flexDirection:'row'}}>
 <Image source={splash} style={{ height: 100,resizeMode:'contain', width: 63,marginRight:10 }} />
-<Text style={{fontSize:20,fontWeight:'bold',marginTop:80}}>Nag List</Text>
+<Text style={{fontSize:24,marginTop:65,color:'black',fontWeight:"bold"}}>Nag List</Text>
   </View>
 <View style={{borderBottomColor:'gray',borderBottomWidth:0.5,marginTop:10}}/>
-<ScrollView style={{marginBottom:105}} showsVerticalScrollIndicator={false}>
-
+<ScrollView style={{marginBottom:180,}} showsVerticalScrollIndicator={true}>
+<TouchableOpacity onPress={() => navigation.navigate("newalarm")} style={{elevation:5,shadowColor:"#e7e7e7",shadowOpacity:5,alignSelf:"flex-end",paddingVertical:5}}>
+    <Text style={{textAlign:'center',color:'#1e99fe',fontWeight:"bold"}}>ADD</Text>
+</TouchableOpacity>
 {
 alarms!=null && alarms && alarms.length > 0 && alarms.map((val,ind)=>{
   // console.log(val,'valll')
@@ -500,8 +502,11 @@ alarms!=null && alarms && alarms.length > 0 && alarms.map((val,ind)=>{
     />
   })
 }
-
+<TouchableOpacity onPress={() => navigation.navigate("newalarm")} style={{width:140,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:15,shadowColor:"#e7e7e7",shadowOpacity:5}}>
+    <Text style={{textAlign:'center',color:'#1e99fe',fontWeight:"bold"}}>ADD A NAG</Text>
+</TouchableOpacity>
 </ScrollView>
+
 </View>
     </SafeAreaView>
   );

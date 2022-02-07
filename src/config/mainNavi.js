@@ -12,8 +12,8 @@ import alarmclock from '../assets/icons/Iconionic-md-alarm.png'
 import alarmclockgray from '../assets/icons/clockgray.png'
 import timer from '../assets/icons/Iconawesome-list2.png'
 import timergray from '../assets/icons/Iconawesome-list.png'
-import recordss from '../assets/icons/recordss.jpeg'
-import alarmclockss from '../assets/icons/clocks.jpeg'
+import recordss from '../assets/icons/recordss.png'
+import alarmclockss from '../assets/icons/clocks.png'
 // SCREENS
 
 // ALARM SCREEN
@@ -74,11 +74,14 @@ const TabNavigator = () => {
     return (
         <Tab.Navigator 
         initialRouteName="alarmnav"
+       
         // initialRouteName={datas._U==0?"alarmnav":"newalarmnav"}
             screenOptions={(options) => {
-          
+                
                 const route = options.route;
                 return {
+                    tabBarStyle:{height:90,borderTopColor:"#d3d3d3",borderTopWidth:0.9},
+
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
                        
@@ -110,6 +113,9 @@ const TabNavigator = () => {
                 
                 showLabel: false,
                 keyboardHidesTabBar: true,
+
+                
+                
             }}
             
         >
@@ -148,7 +154,7 @@ const TabNavigator = () => {
                 <Tab.Screen options={{headerShown:false}}  name="alarmnav" component={AlarmNav}
                 >
                 </Tab.Screen> */}
- <Tab.Screen options={{headerShown:false}}  name="newalarmnav" component={NewAlarmNav}
+ <Tab.Screen options={{headerShown:false,}}    name="newalarmnav" component={NewAlarmNav}
                 >
                 </Tab.Screen> 
 
@@ -158,6 +164,7 @@ const TabNavigator = () => {
             component={AlarmNav}
      
             options={({ navigation,route }) => ({
+                
                 tabBarVisible:false,
                 headerShown:false,
                 tabBarButton: () => (

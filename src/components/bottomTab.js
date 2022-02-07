@@ -3,7 +3,7 @@
 // // import { MaterialCommunityIcons } from "";
 // import {useNavigationState,useRoute,useNavigation} from '@react-navigation/native';
 // import {useSelector, useDispatch} from 'react-redux';
-// import alarmclock from '../assets/icons/clocks.jpeg'
+// import alarmclock from '../assets/icons/clocks.png'
 // import alarmclocks from '../assets/icons/Iconionic-md-alarm.png'
 // import iconmiddle from '../assets/icons/iconmiddle.png'
 // import splashs from '../assets/icons/splash.png'
@@ -130,11 +130,12 @@ import { View, StyleSheet, TouchableOpacity,Image,Platform } from "react-native"
 // import { MaterialCommunityIcons } from "";
 import {useNavigationState,useRoute,useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import alarmclock from '../assets/icons/clocks.jpeg'
+import alarmclock from '../assets/icons/clocks.png'
 import alarmclocks from '../assets/icons/Iconionic-md-alarm.png'
 import iconmiddle from '../assets/icons/iconmiddle.png'
 import splashs from '../assets/icons/splash.png'
 import resumeIcon from '../assets/icons/Iconresumes.png'
+import nagPic from '../assets/icons/NagPic.png'
 import {bottomTabCloseds,bottomTabOpens} from '../redux/navigateTabRedux/navigate-action'
 import playBtn from '../assets/icons/record.png'
 import pause from '../assets/icons/pause.png';
@@ -217,7 +218,7 @@ null:
 					color={colors.white}
 					size={40}
 				/> */}
-					<Image source={splashs} style={{resizeMode:'contain',height:80,width:50,borderRadius:0}} />
+					<Image source={nagPic} style={{resizeMode:'contain',height:80,width:80,borderRadius:0}} />
 			</View>
 				}
 		</TouchableOpacity>
@@ -229,14 +230,14 @@ null:
 const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
-		backgroundColor: '#1e99fe',
-		borderColor: '#F6F6F6',
+		// backgroundColor: '#1e99fe',
+		// borderColor: '#F6F6F6',
 		borderRadius: 0,
-		borderWidth: 20,
+		// borderWidth: 20,
 		bottom: 40,
 		height: 100,
 		justifyContent: "center",
-		marginTop:0,
+		marginTop:-10,
 		width: 70,
 	},
 	

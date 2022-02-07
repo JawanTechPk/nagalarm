@@ -280,13 +280,14 @@ console.log(duration)
       {/* <TouchableOpacity onPress={()=>navigation.navigate('startrecord',{getDatas:getData})}> */}
       <TouchableOpacity onPress={()=>setRecordingShow(true)}>
 <Image source={recordImg} style={{width:90,height:100,marginTop:50,alignSelf:'center'}}/>
-<Text style={{fontSize:20,color:'#707070',textAlign:'center',marginTop:5}}>Create Recording</Text>
+<Text style={{fontSize:24,color:'black',textAlign:'center',marginTop:5,fontWeight:"bold"}}>Create Recording</Text>
 </TouchableOpacity>
+<View style={{borderBottomWidth:0.4,borderBottomColor:"gray",marginTop:10}} />
 {/* <ScrollView style={{flex:1,marginBottom:80,height:'100%'}}>
 <View style={{flex:1,width:'90%',marginLeft:'5%',marginTop:50,}}> */}
-<View style={{height:180}}>
+<View style={{height:250,}}>
 
-<ScrollView style={{flex:1}}>
+<ScrollView style={[{paddingTop:10,flex:1},recordList && recordList.length > 4 ? {borderBottomWidth:0.4,borderBottomColor:"gray"}:null]}>
 {/* <View style={{backgroundColor:'red',flex:1}}> */}
 {
   recordList && recordList.map((val,ind)=>{

@@ -24,7 +24,7 @@ import pause from '../../assets/icons/pause.png';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import RNFetchBlob from 'rn-fetch-blob'
 import RNFS from 'react-native-fs';
-import recordImg from '../../assets/icons/recordss.jpeg'
+import recordImg from '../../assets/icons/recordss1.jpeg'
 import { tabOpen,saveAudioR, tabClosed,onStartRecordR,onStopRecordR,resumeRecorderR,pauseRecorderR } from '../../redux/navigateTabRedux/navigate-action'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
@@ -35,7 +35,7 @@ const StartRecording = ({ navigation, route,closedRecord }) => {
   console.log("enddddddn2222222222222333", isRecordingScreen)
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(10);
   const [repeat, setRepeat] = useState(1);
   const [recordingStart, setRecordingStart] = useState(false);
   const [recordSecs, setrecordSecs] = useState()
@@ -409,7 +409,7 @@ closedRecord(false)
         </View> */}
 
         {/* MAIN BODY */}
-        <View style={{ marginLeft: '5%', width: '90%', marginTop: 0 }}>
+        <View style={{ marginLeft: '5%', width: '90%' }}>
 
           {/* <Image source={recordImg} style={{ width: 100, height: 100, alignSelf: 'center', marginTop: -30 }} />
 
@@ -417,13 +417,13 @@ closedRecord(false)
           <Text style={{ color: '#707070', textAlign: 'center', fontSize: 16 }}>Recording</Text> */}
 
           {/* MIDDLE COUNT */}
-          <View style={{ marginTop: 80 }}>
+          <ScrollView style={{ marginTop: 50}}>
             <Text style={{ color: '#707070', textAlign: 'center', fontSize: 14 }}>Recording Time</Text>
-            <Text style={{ color: '#1e90ff', textAlign: 'center', fontSize: 70 }}>{recordTimeR}</Text>
+            <Text style={{ color: '#1e90ff', textAlign: 'center', fontSize: 40,marginVertical:5 }}>{recordTimeR}</Text>
             <TouchableOpacity onPress={()=> {setModalVisible(true);
             dispatch(pauseRecorderR(audioRecorderPlayer));}
             }>
-                <Image source={redBtn} style={{width:'90%',marginLeft:'5%',height:100,marginTop:10}}/>
+                <Image source={redBtn} resizeMode='contain' style={{width:'40%',marginLeft:'5%',height:50,alignSelf:"center",}}/>
             </TouchableOpacity>
             {/* <TouchableOpacity onPress={() => { onStartRecord() }}>
         <Text>Start Recording</Text>
@@ -447,7 +447,7 @@ closedRecord(false)
       <TouchableOpacity onPress={() => { onStopPlay() }}>
         <Text>Stop Playing</Text>
       </TouchableOpacity> */}
-          </View>
+          </ScrollView>
           {/* MODAL  */}
           <Modal
             animationType="slide"

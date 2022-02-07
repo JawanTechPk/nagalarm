@@ -24,7 +24,7 @@ import pause from '../../assets/icons/pause.png';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import RNFetchBlob from 'rn-fetch-blob'
 import RNFS from 'react-native-fs';
-import recordImg from '../../assets/icons/recordss.jpeg'
+import recordImg from '../../assets/icons/recordss1.jpeg'
 import { tabOpen,saveAudioR, tabClosed,onStartRecordR,onStopRecordR,resumeRecorderR,pauseRecorderR } from '../../redux/navigateTabRedux/navigate-action'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigationState } from '@react-navigation/native';
@@ -409,7 +409,7 @@ recordTimeR,))
           {/* MIDDLE COUNT */}
           <View style={{ marginTop: 80 }}>
             <Text style={{ color: '#707070', textAlign: 'center', fontSize: 14 }}>Recording Time</Text>
-            <Text style={{ color: '#1e90ff', textAlign: 'center', fontSize: 70 }}>{recordTimeR}</Text>
+            <Text style={{ color: '#1e90ff', textAlign: 'center', fontSize: 40 }}>{recordTimeR}</Text>
             {/* <TouchableOpacity onPress={() => { onStartRecord() }}>
         <Text>Start Recording</Text>
         <Text>{recordTime}</Text>

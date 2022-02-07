@@ -8,7 +8,7 @@ import {
   TouchableOpacity,Modal,
   useColorScheme,
   Image,
-  View,Platform, TextInput,Pressable,ActionSheetIOS
+  View,Platform, TextInput,Pressable,ActionSheetIOS, KeyboardAvoidingView, Alert
 } from 'react-native';
 import {updateData} from '../../redux/alarmData/alarm-actions'
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -28,6 +28,9 @@ import {checkDays} from '../../util/days';
 import {modalOpen,modalClose} from '../../redux/modalRedux/modal-actions'
 const NewAlarm = ({navigation,route}) => {
   navigation.setOptions({headerShown: false});
+  let dateFormat=new Date().toLocaleDateString('en-GB', {
+    month: 'numeric',day: '2-digit',year: 'numeric'})
+    
   const [rbsheet,setRbSheet] = useState('')
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
@@ -42,7 +45,9 @@ const NewAlarm = ({navigation,route}) => {
   const [shows, setShows] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [selectDaysTitle, setSelectDaysTitle] = useState('Repeat');
-  const [selectDate, setSelectDate] = useState('6/11/2021');
+  const [selectDate, setSelectDate] = useState(dateFormat);
+
+
   const [breakMin,setBreakMin] = useState(0) 
   const [modalVisible, setModalVisible] = useState(false);
   const [volume, setVolume] = useState(0);
@@ -320,9 +325,9 @@ await AsyncStorage.setItem('alarmsTest',JSON.stringify(newArr));
 setTitle('');
 setAudioSlot([]);
 setSelectDays('Repeat');
-setSelectDate('"6/11/2021"');
+setSelectDate(dateFormat);
 setDate(new Date());
-navigation.navigate("tabnavigator")
+navigation.navigate("alarms")
 }
 //  checkAlarm();
 }
@@ -334,7 +339,7 @@ const deleteSlots=(indx)=>{
 }
   return (
     <SafeAreaView style={{flex:1}}>
-<View style={{flex:1,backgroundColor:'white',marginBottom:-20,width:'90%',alignSelf:'center',marginTop:20,elevation:5,borderRadius:10}}>
+<View style={{flex:1,backgroundColor:'white',width:'90%',alignSelf:'center',marginTop:20,elevation:5,borderRadius:10}}>
       <ScrollView>
 <View style={{height:1,width:50,backgroundColor:'gray',alignSelf:'center',marginTop:10,marginBottom:30}}/>
 
@@ -343,12 +348,12 @@ const deleteSlots=(indx)=>{
   <TouchableOpacity onPress={()=>navigation.navigate('alarmnav')}>
 <Text style={{fontSize:14,marginLeft:10,color:'#1e99fe'}}>Cancel</Text>
   </TouchableOpacity>
-<Text style={{fontSize:24,marginTop:-10,color:'gray'}}>Add a new NAG</Text>
+<Text style={{fontSize:24,marginTop:-10,color:'black',fontWeight:"bold"}}>ADD A NAG</Text>
 <TouchableOpacity onPress={()=>saveAlarm()}>
 <Text style={{fontSize:14,marginRight:10,color:'#1e99fe'}}>Save</Text>
 </TouchableOpacity>
 </View>  
-
+ 
 {/* AM PM */}
 <View style={{flexDirection:'row',justifyContent:'space-around',alignSelf:'center',marginTop:10,width:100,height:35,borderColor:'#1e99fe',padding:2,borderWidth:2}}>
 {
@@ -380,8 +385,11 @@ zoneTime=="AM"?
           themeVariant="light"
           locale="es-ES"
         />
-        <TouchableOpacity onPress={()=>setShow(false)} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:20}}>
+        {/* <TouchableOpacity onPress={()=>setShow(false)} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:20}}>
     <Text style={{textAlign:'center',color:'#1e99fe'}}>Done</Text>
+</TouchableOpacity> */}
+<TouchableOpacity onPress={()=>setShow(false)} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'#e7e7e7',shadowOffset:{width:1,height:1},shadowColor:"#e7e7e7",shadowOpacity:5,elevation:5,}}>
+    <Text style={{textAlign:'center',color:'#363636'}}>Done</Text>
 </TouchableOpacity>
 
       </View>
@@ -399,19 +407,20 @@ zoneTime=="AM"?
 </View>
 {shows && (
   <View>
-
+ <TouchableOpacity onPress={()=>setShows(false)} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'#e7e7e7',shadowOffset:{width:1,height:1},shadowColor:"#e7e7e7",shadowOpacity:5,elevation:5,}}>
+    <Text style={{textAlign:'center',color:'#363636'}}>Done</Text>
+</TouchableOpacity>
        <DateTimePicker
        testID="dateTimePicker"
        value={dates}
        mode={modes}
+      //  customStyles={{ datePickerCon: { backgroundColor: 'yellow', }, }}
        is24Hour={true}
        display="spinner"
        onChange={onChanges}
        style={{width: 320, backgroundColor: "white"}}
      />
-             <TouchableOpacity onPress={()=>setShows(false)} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:20}}>
-    <Text style={{textAlign:'center',color:'#1e99fe'}}>Done</Text>
-</TouchableOpacity>
+            
      </View>
 
       )}
@@ -478,6 +487,7 @@ daysArr.map((value,ind)=>{
         </TouchableOpacity>
         </View>
              </Modal>
+
 <Modal
         animationType="slide"
         transparent={true}
@@ -492,8 +502,8 @@ daysArr.map((value,ind)=>{
           <View style={styles.modalView}>
               <View style={styles.modalFirstView}> 
             <Text style={styles.modalText}>Add Break</Text>
-            <View style={{flexDirection:'row',borderRadius:10,borderColor:'gray',borderWidth:1,}}>
-            <TextInput style={{height:40,width:'80%'}} keyboardType="number-pad" onChangeText={(e)=>setBreakMin(e)}/>
+            <View   style={{flexDirection:'row',borderRadius:10,borderColor:'gray',borderWidth:1,}}>
+            <TextInput style={{height:40,width:'80%',paddingHorizontal:5}} keyboardType="number-pad" onChangeText={(e)=>setBreakMin(e)}/>
             <View style={{backgroundColor:'#1e99fe',width:'20%',borderTopRightRadius:10,borderBottomRightRadius:10,justifyContent:'center',alignItems:'center'}}>
               <Text style={{color:'white'}}>min</Text>
             </View>
@@ -506,6 +516,8 @@ daysArr.map((value,ind)=>{
           </View>
         </View>
       </Modal>
+
+
 {
 audioSlot && audioSlot.map((v,i)=>{
   return <AddNewAlarmList alarmName={v.audioName} min={v.mins} ind={i} deleteSlot={(indx)=>{deleteSlots(indx)}} time={v.alarmTimeP} timeType={v.zoneP} num={i+1}/>
@@ -538,6 +550,13 @@ audioSlot && audioSlot.map((v,i)=>{
 
    </ScrollView>
 </View>
+
+
+     
+      
+     
+    
+   
     </SafeAreaView>
   );
 };

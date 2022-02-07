@@ -13,11 +13,12 @@ import {
   Button
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import recordImg from '../../assets/icons/Group73.png'
+// import recordImg from '../../assets/icons/Group73.png'
 import AddRecordingCard from '../../components/addRecordingCard'
 import file from '../../assets/icons/file.png'
 import RBSheet from "react-native-raw-bottom-sheet";
 import recording from '../../assets/icons/recordimg.png'
+import recordImg from '../../assets/icons/records.png'
 
 const AddAlarm = ({navigation}) => {
     navigation.setOptions({headerShown: false});
@@ -69,13 +70,17 @@ const addAudio=()=>{
 
 
   return (
-    <SafeAreaView style={{flex:1,}}>
+    <SafeAreaView style={{flex:1}}>
       <TouchableOpacity >
-<Image source={recording} style={{width:70,height:70,marginTop:50,alignSelf:'center'}}/>
-<Text style={{fontSize:20,color:'#707070',textAlign:'center',marginTop:5}}>Add Recording</Text>
+      <Image source={recordImg} style={{width:70,height:70,marginTop:50,alignSelf:'center'}}/>
+
+{/* <Image source={recording} style={{width:70,height:70,marginTop:50,alignSelf:'center'}}/> */}
+<Text style={{fontSize:24,color:'black',textAlign:'center',marginTop:5,fontWeight:"bold"}}>Add Recording</Text>
 </TouchableOpacity>
-<ScrollView style={{marginBottom:80}}>
-<View style={{width:'90%',marginLeft:'5%',marginTop:50,}}>
+<View style={{borderBottomWidth:0.4,borderBottomColor:"gray",width:"90%",alignSelf:"center",paddingVertical:10}} />
+
+<ScrollView style={{marginHorizontal:5,}}>
+<View style={{width:'90%',marginLeft:'5%',paddingBottom:35,paddingTop:10}}>
 
 {
   recordList && recordList.map((val,ind)=>{
@@ -83,7 +88,7 @@ const addAudio=()=>{
   })
 }
 
-<TouchableOpacity onPress={()=>{addAudio()}} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:20}}>
+<TouchableOpacity onPress={()=>{addAudio()}} style={{width:100,height:40,borderRadius:10,marginBottom:20,justifyContent:'center',alignSelf:'center',backgroundColor:'white',elevation:5,marginTop:20,}}>
     <Text style={{textAlign:'center',color:'#1e99fe'}}>Add</Text>
 </TouchableOpacity>
 

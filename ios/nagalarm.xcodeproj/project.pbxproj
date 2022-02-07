@@ -458,7 +458,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WFSPJ2CTKR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = nagalarm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -467,6 +467,7 @@
 					"@executable_path/Frameworks",
 				);
 				LD_VERIFY_BITCODE = NO;
+				MARKETING_VERSION = 1.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -499,6 +500,7 @@
 					"@executable_path/Frameworks",
 				);
 				LD_VERIFY_BITCODE = NO;
+				MARKETING_VERSION = 1.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

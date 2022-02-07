@@ -115,6 +115,8 @@ const RecordingCard = ({
         // justifyContent: "space-between",
         alignSelf:"center",
         height: 50,
+        borderBottomColor:"gray",
+        borderBottomWidth:0.3
         // marginVertical: 20,
         // backgroundColor: "red",
       }}
