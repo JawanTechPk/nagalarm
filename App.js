@@ -33,6 +33,7 @@ import {checkDays} from './src/util/days';
 import {onPlay} from './src/components/musicFunc';
 import {modalOpen,modalClose} from './src/redux/modalRedux/modal-actions'
 import {useSelector, useDispatch} from 'react-redux';
+import {notificationListener, requestUserPermission} from "./src/util/fcm-test"
 import {
   NativeBaseProvider,
 } from "native-base";
@@ -74,7 +75,11 @@ const [firstLaunch, setFirstLaunch] = useState(null);
 const [showCom, setShowCom] = useState(false);
 // const dispatch = useDispatch();
 
+useEffect(() => {
+  requestUserPermission()
+  notificationListener()
 
+},[])
 
 const taskRandom = async (taskData) => {
   if (Platform.OS === 'ios') {
@@ -193,6 +198,8 @@ const checkStat=()=>{
 }
 
   useEffect(async() => {
+    // requestUserPermission()
+
     perAsk();
     checkStat()
     SplashScreen.hide();
@@ -207,6 +214,7 @@ if(datas== null){
  //     AsyncStorage.getItem('firstlaunch').then(value=>{
 //     })
     // toggleBackground()
+    // notificationListener()
   }, []);
 
   
